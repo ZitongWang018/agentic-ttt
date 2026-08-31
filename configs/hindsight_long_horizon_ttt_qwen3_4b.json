@@ -1,0 +1,27 @@
+{
+  "agents": [
+    {
+      "agent_type": "HindsightLongHorizonTTTAgent",
+      "agent_id": "qwen3_4b_hindsight_long_horizon_ttt",
+      "agent_name": "Qwen3-4B Hindsight Long-Horizon TTT",
+      "llm_name": "Qwen/Qwen3-4B",
+      "llm_provider": "huggingface",
+      "max_new_tokens": 1024,
+      "prompt_memory_max_chars": 12000,
+      "enable_short_term_memory": true,
+      "short_term_memory_size": 5,
+      "enable_reflection": false,
+      "enable_summarization": false,
+      "max_seq_len": 4096,
+      "lr": 0.000005,
+      "epochs": 2,
+      "batch_size": 2,
+      "grad_accum": 1,
+      "fp16": true,
+      "hindsight_horizon": 4,
+      "policy_update_frequency": 5,
+      "policy_lr": 0.000005,
+      "policy_epochs": 1
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+﻿method,failure_category,count
+Environment-prediction TTT,death / catastrophic transition,8
+Environment-prediction TTT,immediate action repetition,11
+Environment-prediction TTT,ineffective or impossible action,175
+Environment-prediction TTT,invalid action / parser failure,16
+Feedback-to-Policy TTT (Metropolis),death / catastrophic transition,3
+Feedback-to-Policy TTT (Metropolis),immediate action repetition,9
+Feedback-to-Policy TTT (Metropolis),ineffective or impossible action,190
+Feedback-to-Policy TTT (Metropolis),invalid action / parser failure,32
+Hindsight Long-Horizon TTT (Metropolis),death / catastrophic transition,4
+Hindsight Long-Horizon TTT (Metropolis),immediate action repetition,4
+Hindsight Long-Horizon TTT (Metropolis),ineffective or impossible action,165
+Hindsight Long-Horizon TTT (Metropolis),invalid action / parser failure,31
+Lookahead Environment-TTT (Metropolis),death / catastrophic transition,3
+Lookahead Environment-TTT (Metropolis),immediate action repetition,12
+Lookahead Environment-TTT (Metropolis),ineffective or impossible action,171
+Lookahead Environment-TTT (Metropolis),invalid action / parser failure,35
+SFT + Short-Term Memory,death / catastrophic transition,2
+SFT + Short-Term Memory,immediate action repetition,22
+SFT + Short-Term Memory,ineffective or impossible action,223
+SFT + Short-Term Memory,invalid action / parser failure,47

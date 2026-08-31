@@ -1,0 +1,23 @@
+{
+  "agents": [
+    {
+      "agent_type": "FeedbackToPolicyTTTAgent",
+      "agent_id": "qwen3_4b_f2p_ttt",
+      "agent_name": "Qwen3-4B Feedback-to-Policy TTT",
+      "llm_name": "Qwen/Qwen3-4B",
+      "llm_provider": "huggingface",
+      "enable_short_term_memory": true,
+      "short_term_memory_size": 5,
+      "enable_reflection": false,
+      "enable_summarization": false,
+      "max_seq_len": 4096,
+      "lr": 0.000005,
+      "epochs": 2,
+      "batch_size": 2,
+      "grad_accum": 1,
+      "fp16": true,
+      "f2p_beta": 1.0,
+      "f2p_update_frequency": 5
+    }
+  ]
+}

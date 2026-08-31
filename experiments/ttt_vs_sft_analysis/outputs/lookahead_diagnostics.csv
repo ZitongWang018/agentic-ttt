@@ -1,0 +1,3 @@
+﻿method,steps,initial_prediction_coverage,revision_prediction_coverage,executed_prediction_coverage,initial_to_revision_change_rate,training_trigger_rate,training_updates
+Lookahead Environment-TTT (Remnant),500,0.112,0.152,0.724,0.538,0.2,600
+Lookahead Environment-TTT (Metropolis),500,0.03,0.076,0.578,0.516,0.2,600

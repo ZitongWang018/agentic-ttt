@@ -1,0 +1,74 @@
+[06:19:40] [INFO] Agent qwen3_4b_f2p_ttt (FeedbackToPolicyTTTAgent) config: ParamAgentConfig(llm_name='/home/sunward/models/Qwen3-4B', llm_provider='huggingface', embed_name='Qwen/Qwen3-Embedding-0.6B', max_new_tokens=4096, temperature=0.7, presence_penalty=1.5, top_p=0.8, action_prompt='What should I do next? Return only the JSON object.', available_actions=[], torch_seed=42, enable_reflection=False, reflection_verbose=True, enable_summarization=False, summarizer_verbose=True, enable_short_term_memory=True, short_term_memory_size=5, full_mem_path='/home/sunward/agentic-ttt/experiments/f2p_loss_ablation_20260901/pilot/normalized_a1.0_b0.5/qwen3_4b_f2p_ttt/memory', system_prompt='\nYou are the player in a text adventure games. The world is described in text form.\nAt each turn, you may choose ONE action from the action space below.\n\nAction space:\n{}\n\nOutput format (STRICT):\nReturn a single JSON object with exactly these keys:\n{{\n  "reasoning": "A few sentences explaining why you choose the action.",\n  "action": "<action>"\n}}\n\nRules:\n- The JSON must be the ONLY content in your reply (no extra text before/after).\n- The action must exactly match one option from the action space.\n', max_seq_len=4096, full_param_lr=1e-06, lr=5e-06, epochs=2, batch_size=2, grad_accum=1, fp16=True, f2p_beta=1.0, f2p_update_frequency=5, hindsight_horizon=4, prompt_memory_max_chars=12000, policy_update_frequency=5, policy_lr=5e-06, policy_epochs=1, summarizer_llm_name=None, summarizer_temperature=0.6, summarizer_top_p=0.95, summarizer_max_new_tokens=1024, use_sfted_summarizer=True, seed=666) (eval.py:<module>:260)
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:   0%|          | 1/398 [00:02<13:40,  2.07s/it]Loading weights:  17%|█▋        | 66/398 [00:02<00:07, 42.21it/s]Loading weights:  26%|██▌       | 102/398 [00:02<00:06, 43.85it/s]Loading weights:  31%|███       | 124/398 [00:03<00:05, 46.44it/s]Loading weights:  35%|███▍      | 139/398 [00:03<00:05, 49.74it/s]Loading weights:  38%|███▊      | 152/398 [00:03<00:04, 50.58it/s]Loading weights:  41%|████      | 162/398 [00:03<00:04, 51.65it/s]Loading weights:  43%|████▎     | 171/398 [00:04<00:04, 52.07it/s]Loading weights:  45%|████▍     | 179/398 [00:04<00:04, 47.83it/s]Loading weights:  48%|████▊     | 190/398 [00:04<00:04, 49.95it/s]Loading weights:  51%|█████     | 201/398 [00:04<00:03, 51.55it/s]Loading weights:  53%|█████▎    | 209/398 [00:04<00:03, 55.87it/s]Loading weights:  54%|█████▍    | 216/398 [00:05<00:03, 54.58it/s]Loading weights:  56%|█████▌    | 223/398 [00:05<00:03, 49.53it/s]Loading weights:  59%|█████▉    | 234/398 [00:05<00:03, 50.42it/s]Loading weights:  62%|██████▏   | 245/398 [00:05<00:03, 49.70it/s]Loading weights:  64%|██████▍   | 256/398 [00:05<00:02, 51.19it/s]Loading weights:  67%|██████▋   | 267/398 [00:06<00:02, 51.31it/s]Loading weights:  70%|██████▉   | 278/398 [00:06<00:02, 51.76it/s]Loading weights:  73%|███████▎  | 289/398 [00:06<00:02, 50.83it/s]Loading weights:  75%|███████▌  | 300/398 [00:06<00:01, 51.83it/s]Loading weights:  78%|███████▊  | 311/398 [00:06<00:01, 51.87it/s]Loading weights:  81%|████████  | 322/398 [00:07<00:01, 51.80it/s]Loading weights:  84%|████████▎ | 333/398 [00:07<00:01, 50.51it/s]Loading weights:  86%|████████▋ | 344/398 [00:07<00:01, 50.99it/s]Loading weights:  89%|████████▉ | 355/398 [00:07<00:00, 52.28it/s]Loading weights:  92%|█████████▏| 366/398 [00:07<00:00, 52.14it/s]Loading weights:  95%|█████████▍| 377/398 [00:08<00:00, 50.69it/s]Loading weights: 100%|██████████| 398/398 [00:08<00:00, 48.07it/s]
+[06:19:49] [INFO] ✅ Loaded HuggingFace model /home/sunward/models/Qwen3-4B on cuda. (huggingface.py:__init__:76)
+[F2PLossAblation] Transformers generation auto-compile disabled; using eager attention/CUDA on this cluster.
+[LoRASFTAgent] Short-term memory enabled = True
+[LoRASFTAgent] Reflection enabled = False
+[F2PLossAblation] mode=normalized_logp_l2 alpha=1.0 beta=0.5
+[06:19:49] [INFO] Created 1 agent(s): ['qwen3_4b_f2p_ttt'] (eval.py:<module>:271)
+[06:19:49] [INFO] qwen3_4b_f2p_ttt memory dir: /home/sunward/agentic-ttt/experiments/f2p_loss_ablation_20260901/pilot/normalized_a1.0_b0.5/qwen3_4b_f2p_ttt/memory (eval.py:<module>:273)
+[06:19:49] [INFO] Agent memory save frequency: 1 (eval.py:<module>:274)
+[06:19:49] [INFO] Initiating new game from the world config: assets/world_definitions/generated/remnant/default.json (eval.py:<module>:283)
+[06:19:49] [INFO] Initiating new game from the environment config: assets/env_configs/generated/remnant/initial.json (eval.py:<module>:284)
+[06:19:49] [INFO] 🚀 Generating the game world using seed 42 (world.py:generate:283)
+[06:19:49] [INFO] ✅ Instantiated Place Greenwood Forest (ID: place_greenwood_forest, Unlocked: True) with 3 areas (world.py:_instantiate_places:553)
+[06:19:49] [INFO] ✅ Instantiated Place Old Castle (ID: place_old_castle, Unlocked: False) with 3 areas (world.py:_instantiate_places:553)
+[06:19:49] [INFO] ✅ Instantiated Place Sunlit Fields (ID: place_sunlit_fields, Unlocked: True) with 3 areas (world.py:_instantiate_places:553)
+[06:19:49] [INFO] ✅ Instantiated Place Misty Swamp (ID: place_misty_swamp, Unlocked: False) with 2 areas (world.py:_instantiate_places:553)
+[06:19:49] [INFO] ✅ Instantiated Place Sapphire Caves (ID: place_sapphire_caves, Unlocked: False) with 3 areas (world.py:_instantiate_places:553)
+[06:19:49] [INFO] ✅ Instantiated Place Crimson Peak (ID: place_crimson_peak, Unlocked: False) with 2 areas (world.py:_instantiate_places:553)
+[06:19:49] [INFO] ✅ Instantiated Place Shadow Market (ID: place_shadow_market, Unlocked: True) with 2 areas (world.py:_instantiate_places:553)
+[06:19:49] [INFO] ✅ Synthesized Objects (total: 87) (world.py:_synthesize_objects:511)
+[06:19:49] [INFO] ✅ Synthesized NPCs (total types: 23) (world.py:_synthesize_npcs:522)
+[06:19:49] [INFO] ✅ Connected areas within each place (world.py:_connect_intraplace_graphs:576)
+[06:19:49] [INFO] ✅ Connected places together (world.py:_connect_interplace_graphs:606)
+[06:19:49] [INFO] ✅ Distributed objects to areas (world.py:_distribute_objects:717)
+[06:19:49] [INFO] ✅ Assigned NPCs to areas (world.py:_assign_npcs_to_areas:826)
+[06:19:49] [INFO] ✅ World generation completed (world.py:generate:307)
+[06:19:49] [INFO] No previous memory found for agent qwen3_4b_f2p_ttt. Starting fresh. (eval.py:<module>:340)
+[06:20:05] [INFO] ✅ [Step 0] Qwen3-4B Feedback-to-Policy TTT performs action pick up with params ['small_bag_1'] (env.py:step:677)
+[06:20:05] [INFO] Saving memory for qwen3_4b_f2p_ttt at step 1 (eval.py:<module>:445)
+[06:20:27] [INFO] ✅ [Step 1] Qwen3-4B Feedback-to-Policy TTT performs action equip with params ['small_bag_1'] (env.py:step:677)
+[06:20:28] [INFO] Saving memory for qwen3_4b_f2p_ttt at step 2 (eval.py:<module>:445)
+[06:20:46] [INFO] ✅ [Step 2] Qwen3-4B Feedback-to-Policy TTT performs action inspect with params ['inventory'] (env.py:step:677)
+[06:20:46] [INFO] Saving memory for qwen3_4b_f2p_ttt at step 3 (eval.py:<module>:445)
+[06:21:11] [INFO] ✅ [Step 3] Qwen3-4B Feedback-to-Policy TTT performs action unequip with params ['small_bag_1'] (env.py:step:677)
+[06:21:11] [INFO] Saving memory for qwen3_4b_f2p_ttt at step 4 (eval.py:<module>:445)
+[06:21:30] [INFO] ✅ [Step 4] Qwen3-4B Feedback-to-Policy TTT performs action store with params ['1', 'coin', 'small_bag_1'] (env.py:step:677)
+[06:21:36] [INFO] Saving memory for qwen3_4b_f2p_ttt at step 5 (eval.py:<module>:445)
+[06:21:59] [INFO] ✅ [Step 5] Qwen3-4B Feedback-to-Policy TTT performs action inspect with params ['small_bag_1'] (env.py:step:677)
+[06:22:00] [INFO] Saving memory for qwen3_4b_f2p_ttt at step 6 (eval.py:<module>:445)
+[06:22:22] [INFO] ✅ [Step 6] Qwen3-4B Feedback-to-Policy TTT performs action take out with params ['coin', 'small_bag_1'] (env.py:step:677)
+[06:22:23] [INFO] Saving memory for qwen3_4b_f2p_ttt at step 7 (eval.py:<module>:445)
+[06:22:43] [INFO] ✅ [Step 7] Qwen3-4B Feedback-to-Policy TTT performs action drop with params ['coin'] (env.py:step:677)
+[06:22:45] [INFO] Saving memory for qwen3_4b_f2p_ttt at step 8 (eval.py:<module>:445)
+[06:23:04] [INFO] ✅ [Step 8] Qwen3-4B Feedback-to-Policy TTT performs action equip with params ['small_bag_1'] (env.py:step:677)
+[06:23:05] [INFO] Saving memory for qwen3_4b_f2p_ttt at step 9 (eval.py:<module>:445)
+[06:23:48] [INFO] ✅ [Step 9] Qwen3-4B Feedback-to-Policy TTT performs action pick up with params ['coin'] (env.py:step:677)
+[W901 06:23:49.068599445 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 987758592 bytes (free: 294584320, total: 85093777408).
+[W901 06:23:50.092597976 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 987758592 bytes (free: 948895744, total: 85093777408).
+[W901 06:23:51.203474337 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 1671430144 bytes (free: 869203968, total: 85093777408).
+[W901 06:23:51.353153995 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 1671430144 bytes (free: 944701440, total: 85093777408).
+Traceback (most recent call last):
+  File "/home/sunward/agentic-ttt/experiments/f2p_loss_ablation_20260901/code/run_experiment.py", line 109, in <module>
+    
+  File "/home/sunward/agentic-ttt/experiments/f2p_loss_ablation_20260901/code/run_experiment.py", line 105, in main
+    )
+    ^^
+  File "<frozen runpy>", line 291, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/sunward/agentic-ttt/eval.py", line 373, in <module>
+    agent.observe_transition(
+  File "/home/sunward/agentic-ttt/agents/parametric/feedback_to_policy_ttt_agent.py", line 225, in observe_transition
+    trace["training_update"] = self._policy_update(self.f2p_buffer)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sunward/agentic-ttt/experiments/f2p_loss_ablation_20260901/code/loss_patch.py", line 168, in patched_policy_update
+    return result
+                 
+  File "/home/sunward/agentic-ttt/experiments/f2p_loss_ablation_20260901/code/loss_patch.py", line 101, in score_action_tokens
+    first = min(context_shift, input_ids.shape[1] - 1)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.56 GiB. GPU 0 has a total capacity of 79.25 GiB of which 900.94 MiB is free. Including non-PyTorch memory, this process has 78.36 GiB memory in use. Of the allocated memory 74.37 GiB is allocated by PyTorch, and 3.48 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+srun: error: tc-a800-intel-01: task 0: Exited with exit code 1

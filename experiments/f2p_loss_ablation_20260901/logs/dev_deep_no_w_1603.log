@@ -1,0 +1,52 @@
+[06:27:47] [INFO] Agent qwen3_4b_f2p_ttt (FeedbackToPolicyTTTAgent) config: ParamAgentConfig(llm_name='/home/sunward/models/Qwen3-4B', llm_provider='huggingface', embed_name='Qwen/Qwen3-Embedding-0.6B', max_new_tokens=4096, temperature=0.7, presence_penalty=1.5, top_p=0.8, action_prompt='What should I do next? Return only the JSON object.', available_actions=[], torch_seed=42, enable_reflection=False, reflection_verbose=True, enable_summarization=False, summarizer_verbose=True, enable_short_term_memory=True, short_term_memory_size=5, full_mem_path='/home/sunward/agentic-ttt/experiments/f2p_loss_ablation_20260901/smoke/attempt6/no_w/qwen3_4b_f2p_ttt/memory', system_prompt='\nYou are the player in a text adventure games. The world is described in text form.\nAt each turn, you may choose ONE action from the action space below.\n\nAction space:\n{}\n\nOutput format (STRICT):\nReturn a single JSON object with exactly these keys:\n{{\n  "reasoning": "A few sentences explaining why you choose the action.",\n  "action": "<action>"\n}}\n\nRules:\n- The JSON must be the ONLY content in your reply (no extra text before/after).\n- The action must exactly match one option from the action space.\n', max_seq_len=4096, full_param_lr=1e-06, lr=5e-06, epochs=2, batch_size=2, grad_accum=1, fp16=True, f2p_beta=1.0, f2p_update_frequency=5, hindsight_horizon=4, prompt_memory_max_chars=12000, policy_update_frequency=5, policy_lr=5e-06, policy_epochs=1, summarizer_llm_name=None, summarizer_temperature=0.6, summarizer_top_p=0.95, summarizer_max_new_tokens=1024, use_sfted_summarizer=True, seed=666) (eval.py:<module>:260)
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:   0%|          | 1/398 [00:01<08:28,  1.28s/it]Loading weights:  15%|█▍        | 58/398 [00:01<00:06, 55.40it/s]Loading weights:  21%|██        | 82/398 [00:01<00:05, 61.45it/s]Loading weights:  25%|██▍       | 99/398 [00:01<00:04, 66.20it/s]Loading weights:  28%|██▊       | 112/398 [00:02<00:04, 68.27it/s]Loading weights:  31%|███       | 124/398 [00:02<00:04, 62.71it/s]Loading weights:  34%|███▍      | 135/398 [00:02<00:03, 68.94it/s]Loading weights:  37%|███▋      | 146/398 [00:02<00:03, 74.69it/s]Loading weights:  39%|███▉      | 157/398 [00:02<00:03, 79.97it/s]Loading weights:  42%|████▏     | 168/398 [00:02<00:02, 82.28it/s]Loading weights:  45%|████▍     | 179/398 [00:02<00:02, 82.42it/s]Loading weights:  48%|████▊     | 190/398 [00:03<00:02, 80.16it/s]Loading weights:  51%|█████     | 201/398 [00:03<00:02, 78.55it/s]Loading weights:  53%|█████▎    | 212/398 [00:03<00:02, 76.03it/s]Loading weights:  56%|█████▌    | 223/398 [00:03<00:02, 73.30it/s]Loading weights:  59%|█████▉    | 234/398 [00:03<00:02, 78.97it/s]Loading weights:  62%|██████▏   | 245/398 [00:03<00:02, 74.36it/s]Loading weights:  64%|██████▍   | 256/398 [00:03<00:01, 74.26it/s]Loading weights:  67%|██████▋   | 267/398 [00:04<00:01, 73.94it/s]Loading weights:  70%|██████▉   | 278/398 [00:04<00:01, 72.73it/s]Loading weights:  73%|███████▎  | 289/398 [00:04<00:01, 71.62it/s]Loading weights:  75%|███████▌  | 300/398 [00:04<00:01, 72.05it/s]Loading weights:  78%|███████▊  | 311/398 [00:04<00:01, 69.40it/s]Loading weights:  81%|████████  | 322/398 [00:04<00:01, 71.95it/s]Loading weights:  84%|████████▎ | 333/398 [00:05<00:00, 72.91it/s]Loading weights:  87%|████████▋ | 345/398 [00:05<00:00, 81.99it/s]Loading weights:  89%|████████▉ | 355/398 [00:05<00:00, 85.54it/s]Loading weights:  92%|█████████▏| 367/398 [00:05<00:00, 94.19it/s]Loading weights:  97%|█████████▋| 388/398 [00:05<00:00, 111.46it/s]Loading weights: 100%|██████████| 398/398 [00:05<00:00, 71.88it/s] 
+[06:27:54] [INFO] ✅ Loaded HuggingFace model /home/sunward/models/Qwen3-4B on cuda. (huggingface.py:__init__:76)
+[F2PLossAblation] Transformers generation auto-compile disabled; using SDPA attention/CUDA on this cluster.
+[LoRASFTAgent] Short-term memory enabled = True
+[LoRASFTAgent] Reflection enabled = False
+[F2PLossAblation] mode=no_w alpha=1.0 beta=0.0
+[06:27:54] [INFO] Created 1 agent(s): ['qwen3_4b_f2p_ttt'] (eval.py:<module>:271)
+[06:27:54] [INFO] qwen3_4b_f2p_ttt memory dir: /home/sunward/agentic-ttt/experiments/f2p_loss_ablation_20260901/smoke/attempt6/no_w/qwen3_4b_f2p_ttt/memory (eval.py:<module>:273)
+[06:27:54] [INFO] Agent memory save frequency: 1 (eval.py:<module>:274)
+[06:27:54] [INFO] Initiating new game from the world config: assets/world_definitions/generated/remnant/default.json (eval.py:<module>:283)
+[06:27:54] [INFO] Initiating new game from the environment config: assets/env_configs/generated/remnant/initial.json (eval.py:<module>:284)
+[06:27:54] [INFO] 🚀 Generating the game world using seed 42 (world.py:generate:283)
+[06:27:54] [INFO] ✅ Instantiated Place Greenwood Forest (ID: place_greenwood_forest, Unlocked: True) with 3 areas (world.py:_instantiate_places:553)
+[06:27:54] [INFO] ✅ Instantiated Place Old Castle (ID: place_old_castle, Unlocked: False) with 3 areas (world.py:_instantiate_places:553)
+[06:27:54] [INFO] ✅ Instantiated Place Sunlit Fields (ID: place_sunlit_fields, Unlocked: True) with 3 areas (world.py:_instantiate_places:553)
+[06:27:54] [INFO] ✅ Instantiated Place Misty Swamp (ID: place_misty_swamp, Unlocked: False) with 2 areas (world.py:_instantiate_places:553)
+[06:27:54] [INFO] ✅ Instantiated Place Sapphire Caves (ID: place_sapphire_caves, Unlocked: False) with 3 areas (world.py:_instantiate_places:553)
+[06:27:54] [INFO] ✅ Instantiated Place Crimson Peak (ID: place_crimson_peak, Unlocked: False) with 2 areas (world.py:_instantiate_places:553)
+[06:27:54] [INFO] ✅ Instantiated Place Shadow Market (ID: place_shadow_market, Unlocked: True) with 2 areas (world.py:_instantiate_places:553)
+[06:27:54] [INFO] ✅ Synthesized Objects (total: 87) (world.py:_synthesize_objects:511)
+[06:27:54] [INFO] ✅ Synthesized NPCs (total types: 23) (world.py:_synthesize_npcs:522)
+[06:27:54] [INFO] ✅ Connected areas within each place (world.py:_connect_intraplace_graphs:576)
+[06:27:54] [INFO] ✅ Connected places together (world.py:_connect_interplace_graphs:606)
+[06:27:54] [INFO] ✅ Distributed objects to areas (world.py:_distribute_objects:717)
+[06:27:54] [INFO] ✅ Assigned NPCs to areas (world.py:_assign_npcs_to_areas:826)
+[06:27:54] [INFO] ✅ World generation completed (world.py:generate:307)
+[06:27:54] [INFO] No previous memory found for agent qwen3_4b_f2p_ttt. Starting fresh. (eval.py:<module>:340)
+[06:28:11] [INFO] ✅ [Step 0] Qwen3-4B Feedback-to-Policy TTT performs action pick up with params ['small_bag_1'] (env.py:step:677)
+[06:28:11] [INFO] Saving memory for qwen3_4b_f2p_ttt at step 1 (eval.py:<module>:445)
+[06:28:30] [INFO] ✅ [Step 1] Qwen3-4B Feedback-to-Policy TTT performs action equip with params ['small_bag_1'] (env.py:step:677)
+[06:28:30] [INFO] Saving memory for qwen3_4b_f2p_ttt at step 2 (eval.py:<module>:445)
+[06:28:47] [INFO] ✅ [Step 2] Qwen3-4B Feedback-to-Policy TTT performs action enter with params ['hall'] (env.py:step:677)
+[06:28:47] [INFO] Saving memory for qwen3_4b_f2p_ttt at step 3 (eval.py:<module>:445)
+[06:29:25] [INFO] ✅ [Step 3] Qwen3-4B Feedback-to-Policy TTT performs action lockpick with params ['hall'] (env.py:step:677)
+[06:29:25] [INFO] Saving memory for qwen3_4b_f2p_ttt at step 4 (eval.py:<module>:445)
+[06:29:41] [INFO] ✅ [Step 4] Qwen3-4B Feedback-to-Policy TTT performs action inspect with params ['inventory'] (env.py:step:677)
+[06:29:44] [INFO] Saving memory for qwen3_4b_f2p_ttt at step 5 (eval.py:<module>:445)
+[06:30:03] [INFO] ✅ [Step 5] Qwen3-4B Feedback-to-Policy TTT performs action unequip with params ['small_bag_1'] (env.py:step:677)
+[06:30:04] [INFO] Saving memory for qwen3_4b_f2p_ttt at step 6 (eval.py:<module>:445)
+[06:30:20] [INFO] ✅ [Step 6] Qwen3-4B Feedback-to-Policy TTT performs action store with params ['1', 'coin', 'small_bag_1'] (env.py:step:677)
+[06:30:20] [INFO] Saving memory for qwen3_4b_f2p_ttt at step 7 (eval.py:<module>:445)
+[06:30:37] [INFO] ✅ [Step 7] Qwen3-4B Feedback-to-Policy TTT performs action inspect with params ['small_bag_1'] (env.py:step:677)
+[06:30:38] [INFO] Saving memory for qwen3_4b_f2p_ttt at step 8 (eval.py:<module>:445)
+[06:30:56] [INFO] ✅ [Step 8] Qwen3-4B Feedback-to-Policy TTT performs action take out with params ['coin', 'small_bag_1'] (env.py:step:677)
+[06:30:57] [INFO] Saving memory for qwen3_4b_f2p_ttt at step 9 (eval.py:<module>:445)
+[06:31:15] [INFO] ✅ [Step 9] Qwen3-4B Feedback-to-Policy TTT performs action drop with params ['coin'] (env.py:step:677)
+[06:31:18] [INFO] Saving memory for qwen3_4b_f2p_ttt at step 10 (eval.py:<module>:445)
+[06:31:36] [INFO] ✅ [Step 10] Qwen3-4B Feedback-to-Policy TTT performs action equip with params ['small_bag_1'] (env.py:step:677)
+[06:31:37] [INFO] Saving memory for qwen3_4b_f2p_ttt at step 11 (eval.py:<module>:445)
+[06:31:37] [INFO] Episode finished after 11 steps (eval.py:<module>:453)

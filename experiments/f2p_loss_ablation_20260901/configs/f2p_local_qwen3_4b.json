@@ -4,7 +4,7 @@
       "agent_type": "FeedbackToPolicyTTTAgent",
       "agent_id": "qwen3_4b_f2p_ttt",
       "agent_name": "Qwen3-4B Feedback-to-Policy TTT",
-      "llm_name": "Qwen/Qwen3-4B",
+      "llm_name": "/home/sunward/models/Qwen3-4B",
       "llm_provider": "huggingface",
       "max_new_tokens": 4096,
       "enable_short_term_memory": true,

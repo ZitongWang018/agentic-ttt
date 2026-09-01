@@ -383,7 +383,7 @@ class LoRASFTAgent:
 
         adapter_subdir = data.get("adapter_subdir", self.adapter_subdir)
         adapter_dir = os.path.join(full_memory_dir, adapter_subdir)
-        if os.path.exists(adapter_dir):
+        if os.path.isfile(os.path.join(adapter_dir, "adapter_config.json")):
             print("Loading adapter from ", adapter_dir, flush=True)
             self.load_adapter(adapter_dir)
 

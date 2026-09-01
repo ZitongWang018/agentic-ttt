@@ -1,0 +1,77 @@
+[
+  {
+    "run_dir": "/home/sunward/agentic-ttt/experiments/f2p_loss_ablation_20260901/smoke/attempt4/original",
+    "loss_mode": "original",
+    "alpha": 1.0,
+    "beta": 0.0,
+    "steps": 6,
+    "updates": 1,
+    "finite": true,
+    "mean_loss": 5.674892544746399,
+    "max_abs_loss": 5.674892544746399,
+    "mean_grad_norm": null,
+    "invalid_rate": 0.0,
+    "unique_actions": 6,
+    "reward_total": 0.0,
+    "scores": {
+      "unique_kill": 0.0,
+      "kill": 0.0,
+      "craft": 0.0,
+      "exploration": 0.0,
+      "death": 0.0,
+      "trade": 0.0,
+      "quest": 0.0,
+      "side_quest": 0.0
+    }
+  },
+  {
+    "run_dir": "/home/sunward/agentic-ttt/experiments/f2p_loss_ablation_20260901/smoke/attempt4/no_w",
+    "loss_mode": "no_w",
+    "alpha": 1.0,
+    "beta": 0.0,
+    "steps": 6,
+    "updates": 1,
+    "finite": true,
+    "mean_loss": 11.230366516113282,
+    "max_abs_loss": 11.230366516113282,
+    "mean_grad_norm": 34.27097702026367,
+    "invalid_rate": 0.0,
+    "unique_actions": 6,
+    "reward_total": 0.0,
+    "scores": {
+      "unique_kill": 0.0,
+      "kill": 0.0,
+      "craft": 0.0,
+      "exploration": 0.0,
+      "death": 0.0,
+      "trade": 0.0,
+      "quest": 0.0,
+      "side_quest": 0.0
+    }
+  },
+  {
+    "run_dir": "/home/sunward/agentic-ttt/experiments/f2p_loss_ablation_20260901/smoke/attempt4/normalized",
+    "loss_mode": "normalized_logp_l2",
+    "alpha": 1.0,
+    "beta": 0.5,
+    "steps": 6,
+    "updates": 1,
+    "finite": true,
+    "mean_loss": 1.888279104232788,
+    "max_abs_loss": 1.888279104232788,
+    "mean_grad_norm": 5.68039083480835,
+    "invalid_rate": 0.0,
+    "unique_actions": 6,
+    "reward_total": 0.0,
+    "scores": {
+      "unique_kill": 0.0,
+      "kill": 0.0,
+      "craft": 0.0,
+      "exploration": 0.0,
+      "death": 0.0,
+      "trade": 0.0,
+      "quest": 0.0,
+      "side_quest": 0.0
+    }
+  }
+]

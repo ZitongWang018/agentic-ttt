@@ -12,6 +12,7 @@ import torch
 from torch.optim import AdamW
 
 from agents.parametric.lora_sft_agent import LoRASFTAgent
+from utils import atomic_write
 
 
 class FeedbackToPolicyTTTAgent(LoRASFTAgent):
@@ -32,11 +33,22 @@ class FeedbackToPolicyTTTAgent(LoRASFTAgent):
         self.f2p_last_trace: Dict[str, Any] = {}
         self.f2p_log_path: str | None = None
         self.f2p_beta = float(getattr(self.cfg, "f2p_beta", 1.0))
-        self.f2p_update_frequency = int(getattr(self.cfg, "f2p_update_frequency", 5))
+        self.f2p_update_frequency = max(1, int(getattr(self.cfg, "f2p_update_frequency", 5)))
         self.f2p_max_score_len = int(getattr(self.cfg, "max_seq_len", 4096))
         self.f2p_system = (
             self.cfg.system_prompt
-            + "\nIn addition to the required reasoning and action keys, include a short predicted_outcome key describing the immediate environment change."
+            + """
+
+F2P OUTPUT FORMAT OVERRIDE:
+For this agent, the earlier two-key output schema is replaced by this exact
+three-key JSON schema:
+{
+  "reasoning": "A few sentences explaining why you choose the action.",
+  "action": "<action>",
+  "predicted_outcome": "A short prediction of the immediate environment change."
+}
+All other action-validity and JSON-only rules above still apply.
+"""
         )
         self._last_action_prompt = ""
         self._last_prediction = ""
@@ -227,6 +239,44 @@ class FeedbackToPolicyTTTAgent(LoRASFTAgent):
 
     def get_f2p_trace(self):
         return self.f2p_last_trace
+
+    def finish_episode(self):
+        """Apply feedback left in a short final batch instead of dropping it."""
+        if not self.f2p_buffer:
+            return
+        update = self._policy_update(self.f2p_buffer)
+        self.f2p_buffer = []
+        self.f2p_last_trace = dict(self.f2p_last_trace)
+        self.f2p_last_trace["episode_end_training_update"] = update
+
+    def save_memory(self, full_memory_dir: str) -> None:
+        """Persist pending feedback together with the inherited LoRA state."""
+        super().save_memory(full_memory_dir)
+        path = os.path.join(full_memory_dir, self.memory_paths[0])
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        data["feedback_to_policy"] = {
+            "beta": self.f2p_beta,
+            "update_frequency": self.f2p_update_frequency,
+            "buffer": list(self.f2p_buffer),
+            "last_trace": self.f2p_last_trace,
+        }
+        atomic_write(path, json.dumps(data, ensure_ascii=False, indent=2))
+
+    def load_memory(self, full_memory_dir: str) -> None:
+        super().load_memory(full_memory_dir)
+        path = os.path.join(full_memory_dir, self.memory_paths[0])
+        if not os.path.exists(path):
+            return
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        state = data.get("feedback_to_policy", {}) or {}
+        self.f2p_beta = float(state.get("beta", self.f2p_beta))
+        self.f2p_update_frequency = max(
+            1, int(state.get("update_frequency", self.f2p_update_frequency))
+        )
+        self.f2p_buffer = list(state.get("buffer", []) or [])
+        self.f2p_last_trace = dict(state.get("last_trace", {}) or {})
 
 
 @lru_cache(maxsize=None)

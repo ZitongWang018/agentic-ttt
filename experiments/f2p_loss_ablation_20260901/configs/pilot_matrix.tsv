@@ -1,0 +1,7 @@
+name	loss_mode	alpha	beta
+normalized_a0.25_b0.25	normalized_logp_l2	0.25	0.25
+normalized_a0.5_b0.25	normalized_logp_l2	0.5	0.25
+normalized_a1.0_b0.25	normalized_logp_l2	1.0	0.25
+normalized_a1.0_b0.5	normalized_logp_l2	1.0	0.5
+normalized_a1.0_b1.0	normalized_logp_l2	1.0	1.0
+normalized_a2.0_b0.5	normalized_logp_l2	2.0	0.5

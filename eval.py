@@ -357,18 +357,6 @@ if __name__ == "__main__":
                 "response": response,
             }
 
-        if args.agent_memory_save_frequency is not None and args.agent_memory_save_frequency > 0:
-            if env.steps % args.agent_memory_save_frequency == 0:
-                for agent in env.agents:
-                    a_dir = agent_dirs[agent.id]
-                    if hasattr(agent, "save_memory"):
-                        agent.save_memory(
-                            full_memory_dir=os.path.join(a_dir, args.memory_dir),
-                        )
-                        logger.info(f"Saving memory for {agent.id} at step {env.steps}")
-                    else:
-                        logger.warning(f"Agent {agent.id} does not have save_memory method. Skipping memory save.")
-
         try:
             obs, reward, done, info = env.step(action_strs)
             if args.enable_obs_valid_actions:
@@ -436,12 +424,31 @@ if __name__ == "__main__":
 
         env.update_config(cumulative=args.cumulative_config_save)
 
+        # Save only after the real transition, F2P update, log, and environment
+        # state are complete.  A resumed run therefore never combines the
+        # previous environment state with a newer F2P buffer/adapter.
+        checkpoint_due = (
+            args.agent_memory_save_frequency is not None
+            and args.agent_memory_save_frequency > 0
+            and (
+                episode_finished
+                or env.steps % args.agent_memory_save_frequency == 0
+            )
+        )
+        if checkpoint_due:
+            for agent in env.agents:
+                a_dir = agent_dirs[agent.id]
+                if hasattr(agent, "save_memory"):
+                    agent.save_memory(
+                        full_memory_dir=os.path.join(a_dir, args.memory_dir)
+                    )
+                    logger.info(f"Saving memory for {agent.id} at step {env.steps}")
+                else:
+                    logger.warning(
+                        f"Agent {agent.id} does not have save_memory method. "
+                        "Skipping memory save."
+                    )
+
         if episode_finished:
-            if args.agent_memory_save_frequency is not None and args.agent_memory_save_frequency > 0:
-                for agent in env.agents:
-                    a_dir = agent_dirs[agent.id]
-                    if hasattr(agent, "save_memory"):
-                        agent.save_memory(full_memory_dir=os.path.join(a_dir, args.memory_dir))
-                        print(f"Saving the last memory checkpoint for {agent.id} at step: {env.steps}")
             logger.info(f"Episode finished after {env.steps} steps")
             break

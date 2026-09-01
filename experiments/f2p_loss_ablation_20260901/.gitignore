@@ -1,0 +1,9 @@
+# Generated run outputs and scheduler logs. Keep these locally; commit the
+# compact, reproducible summaries under summary/ instead.
+/formal/
+/logs/
+/pilot/
+/smoke/
+
+# Cluster-specific dependencies downloaded/extracted by the experiment.
+/vendor/

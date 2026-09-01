@@ -353,6 +353,106 @@ def plot_training_dashboard(
     plt.close(figure)
 
 
+def plot_two_loss_components(
+    runs: dict[str, dict[str, Any]],
+    output_dir: Path,
+) -> None:
+    figure, axes = plt.subplots(1, 2, figsize=(13.5, 5.2))
+    component_specs = (
+        (
+            "mean_nll",
+            "Weighted normalized NLL term",
+            r"$\alpha\,\mathrm{NLL}/s_{NLL}$",
+            "alpha",
+            "nll_scale",
+        ),
+        (
+            "mean_logp_l2",
+            "Weighted normalized L2 term",
+            r"$\beta\,\|\log p(a_t\mid H_t)\|_2/s_{L2}$",
+            "beta",
+            "l2_scale",
+        ),
+    )
+
+    for panel_index, (axis, spec) in enumerate(zip(axes, component_specs)):
+        value_key, title, ylabel, weight_key, scale_key = spec
+        for name, run in runs.items():
+            if name not in NORMALIZED_RUNS:
+                continue
+            x = np.asarray([step for step, _ in run["updates"]])
+            y = np.asarray(
+                [
+                    update[weight_key] * update[value_key] / update[scale_key]
+                    for _, update in run["updates"]
+                ],
+                dtype=float,
+            )
+            axis.plot(x, y, color=run["color"], linewidth=0.9, alpha=0.2)
+            axis.plot(
+                x,
+                rolling_mean(y, 5),
+                color=run["color"],
+                linewidth=2.4,
+            )
+        axis.set_title(title, fontsize=13, fontweight="bold")
+        axis.set_ylabel(ylabel)
+        axis.set_xlabel("Environment step")
+        axis.set_xlim(0, 505)
+        axis.set_ylim(bottom=0)
+        style_axis(axis)
+        add_panel_label(axis, chr(ord("A") + panel_index))
+
+    handles = [
+        Line2D([0], [0], color=color, linewidth=3, label=label)
+        for name, label, color in RUNS
+        if name in NORMALIZED_RUNS
+    ]
+    figure.legend(
+        handles=handles,
+        loc="upper center",
+        bbox_to_anchor=(0.5, 0.89),
+        ncol=3,
+        frameon=False,
+        fontsize=9,
+        handlelength=2.8,
+    )
+    figure.suptitle(
+        "Actual Two-Term Loss Dynamics",
+        fontsize=17,
+        fontweight="bold",
+        y=0.99,
+    )
+    figure.text(
+        0.5,
+        0.935,
+        r"Normalized objective:  $L=\alpha\,\mathrm{NLL}/s_{NLL}+\beta\,\|\log p\|_2/s_{L2}$"
+        "   ·   Remnant · Qwen3-4B · seed 42",
+        ha="center",
+        fontsize=10,
+        color="#555555",
+    )
+    figure.text(
+        0.5,
+        0.015,
+        "Faint lines show individual 5-step updates; solid lines show a 5-update rolling mean. "
+        "At every update, the two plotted terms sum exactly to the stored total loss.",
+        ha="center",
+        fontsize=8.5,
+        color="#555555",
+    )
+    figure.subplots_adjust(left=0.085, right=0.985, bottom=0.15, top=0.79, wspace=0.23)
+
+    for extension in ("png", "pdf"):
+        figure.savefig(
+            output_dir / f"two_loss_component_dynamics.{extension}",
+            dpi=220 if extension == "png" else None,
+            bbox_inches="tight",
+            facecolor="white",
+        )
+    plt.close(figure)
+
+
 def plot_data_quality(
     runs: dict[str, dict[str, Any]],
     output_dir: Path,
@@ -510,6 +610,7 @@ def main() -> None:
 
     runs = load_runs(experiment_root)
     plot_training_dashboard(runs, output_dir)
+    plot_two_loss_components(runs, output_dir)
     plot_data_quality(runs, output_dir)
     print(f"Wrote figures to {output_dir}")
 

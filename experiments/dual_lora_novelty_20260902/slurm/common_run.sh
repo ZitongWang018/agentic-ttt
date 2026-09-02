@@ -19,6 +19,7 @@ NOVELTY_SCORE_BATCH_SIZE="${NOVELTY_SCORE_BATCH_SIZE:-5}"
 NOVELTY_TRAIN_MICROBATCH_SIZE="${NOVELTY_TRAIN_MICROBATCH_SIZE:-1}"
 AGENTS_CONFIG="${AGENTS_CONFIG:-${EXPERIMENT_ROOT}/configs/f2p_novelty_qwen3_4b.json}"
 AGENT_MEMORY_SAVE_FREQUENCY="${AGENT_MEMORY_SAVE_FREQUENCY:-1}"
+AGENT_LORA_SNAPSHOT_STEPS="${AGENT_LORA_SNAPSHOT_STEPS:-}"
 PYTHON_HEADER_DIR="${REPO_ROOT}/experiments/f2p_loss_ablation_20260901/vendor/python3-devel-root/usr/include/python3.11"
 
 export TORCHDYNAMO_DISABLE=1
@@ -58,4 +59,5 @@ exec "${PYTHON_BIN}" "${EXPERIMENT_ROOT}/code/run_experiment.py" \
   --seed "${SEED}" \
   --run_dir "${RUN_DIR}" \
   --cumulative_config_save \
-  --agent_memory_save_frequency "${AGENT_MEMORY_SAVE_FREQUENCY}"
+  --agent_memory_save_frequency "${AGENT_MEMORY_SAVE_FREQUENCY}" \
+  --agent_lora_snapshot_steps "${AGENT_LORA_SNAPSHOT_STEPS}"

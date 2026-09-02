@@ -18,7 +18,7 @@ EXPERIMENT_ROOT="${REPO_ROOT}/experiments/dual_lora_novelty_20260902"
 matrix="${EXPERIMENT_ROOT}/configs/formal_matrix.tsv"
 line_number=$((SLURM_ARRAY_TASK_ID + 2))
 IFS=$'\t' read -r name mode novelty_lr lambda0 seed < <(sed -n "${line_number}p" "${matrix}")
-selected_hparams="${EXPERIMENT_ROOT}/summary/selected_hparams.tsv"
+selected_hparams="${EXPERIMENT_ROOT}/summary/selected_novelty_hparams_from_200step_pilot.tsv"
 if [[ ! -f "${selected_hparams}" ]]; then
   echo "Missing pilot selection: ${selected_hparams}" >&2
   exit 2

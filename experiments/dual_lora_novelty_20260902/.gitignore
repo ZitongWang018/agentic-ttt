@@ -1,18 +1,20 @@
 # Generated scheduler logs and run directories. Selected result snapshots are
 # force-added explicitly, matching the repository's other experiment folders.
 logs/*
-smoke/*
 pilot/*
 formal/*
 summary/*
-relative_smoke/*
-relative_smoke_v2/*
 relative_formal/*
-discarded_relative_formal_order_confounded_1863/*
+f2p_checkpoint_rerun/*
 
 # Large resumable environment snapshots and LoRA checkpoints stay local.
 **/config.jsonl
 **/memory/
+**/lora_checkpoints/
+**/*.safetensors
+**/*.pt
+**/*.pth
+**/*.ckpt
 **/__pycache__/
 *.pyc
 
@@ -20,7 +22,14 @@ discarded_relative_formal_order_confounded_1863/*
 vendor/
 
 !logs/.gitkeep
-!smoke/.gitkeep
+!logs/completed_*.log
 !pilot/.gitkeep
 !formal/.gitkeep
 !summary/.gitkeep
+!summary/*.json
+!summary/*.csv
+!summary/*.tsv
+!summary/*.md
+!summary/*.png
+!summary/*.pdf
+!summary/*.svg

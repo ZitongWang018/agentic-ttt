@@ -3,6 +3,7 @@ import argparse
 import os
 import json
 import shutil
+import tempfile
 import random
 import copy
 from tools.logger import get_logger
@@ -33,6 +34,59 @@ def _ensure_valid_actions(obs):
                 if value:
                     cleaned[key] = value
             agent_obs["valid_actions"] = cleaned
+
+
+def _parse_snapshot_steps(value):
+    if value is None or not str(value).strip():
+        return set()
+    steps = set()
+    for item in str(value).split(","):
+        item = item.strip()
+        if not item:
+            continue
+        step = int(item)
+        if step <= 0:
+            raise ValueError("LoRA snapshot steps must be positive integers")
+        steps.add(step)
+    return steps
+
+
+def _save_lora_snapshot(*, agent_dir, memory_dir, step, logger):
+    source_dir = os.path.join(agent_dir, memory_dir, "lora")
+    if not os.path.isdir(source_dir):
+        raise FileNotFoundError(
+            f"Cannot save LoRA snapshot at step {step}: missing {source_dir}"
+        )
+
+    snapshot_root = os.path.join(agent_dir, "lora_checkpoints")
+    snapshot_dir = os.path.join(snapshot_root, f"step_{step:04d}")
+    os.makedirs(snapshot_root, exist_ok=True)
+    if os.path.exists(snapshot_dir):
+        logger.info(
+            f"Keeping existing immutable LoRA snapshot at {snapshot_dir}"
+        )
+        return
+
+    temporary_dir = tempfile.mkdtemp(
+        prefix=f".step_{step:04d}_", dir=snapshot_root
+    )
+    try:
+        shutil.copytree(source_dir, temporary_dir, dirs_exist_ok=True)
+        with open(os.path.join(temporary_dir, "snapshot_metadata.json"), "w") as f:
+            json.dump(
+                {
+                    "environment_step": step,
+                    "source": source_dir,
+                },
+                f,
+                indent=2,
+            )
+            f.write("\n")
+        os.replace(temporary_dir, snapshot_dir)
+    except Exception:
+        shutil.rmtree(temporary_dir, ignore_errors=True)
+        raise
+    logger.info(f"Saved immutable LoRA snapshot at {snapshot_dir}")
 
 def build_agent_config(agent_type, common_cfg_kwargs):
     # Lazy-import agent config classes to avoid importing heavy/optional provider SDKs
@@ -136,7 +190,22 @@ if __name__ == "__main__":
     parser.add_argument("--memory_dir", type=str, default="memory", help="Directory to save agent memory checkpoints under run_dir")
     parser.add_argument("--agent_memory_save_frequency", type=int, default=1,
                         help="Save agent memory every N environment steps. If None, disabled.")
+    parser.add_argument(
+        "--agent_lora_snapshot_steps",
+        type=str,
+        default="",
+        help=(
+            "Comma-separated environment steps at which the just-saved LoRA "
+            "directory is copied to an immutable lora_checkpoints/step_NNNN snapshot."
+        ),
+    )
     args = parser.parse_args()
+    lora_snapshot_steps = _parse_snapshot_steps(args.agent_lora_snapshot_steps)
+    if any(step > args.max_steps for step in lora_snapshot_steps):
+        raise ValueError(
+            "LoRA snapshot steps cannot exceed --max_steps: "
+            f"{sorted(lora_snapshot_steps)} vs {args.max_steps}"
+        )
 
     if args.debug:
         args.cumulative_config_save = True
@@ -272,6 +341,7 @@ if __name__ == "__main__":
     for a_id, a_dir in agent_dirs.items():
         logger.info(f"{a_id} memory dir: {os.path.join(a_dir, args.memory_dir)}")
     logger.info(f"Agent memory save frequency: {args.agent_memory_save_frequency}")
+    logger.info(f"Immutable LoRA snapshot steps: {sorted(lora_snapshot_steps)}")
 
     config_path = os.path.join(run_dir, "config.json")
     if args.cumulative_config_save:
@@ -443,6 +513,13 @@ if __name__ == "__main__":
                         full_memory_dir=os.path.join(a_dir, args.memory_dir)
                     )
                     logger.info(f"Saving memory for {agent.id} at step {env.steps}")
+                    if env.steps in lora_snapshot_steps:
+                        _save_lora_snapshot(
+                            agent_dir=a_dir,
+                            memory_dir=args.memory_dir,
+                            step=env.steps,
+                            logger=logger,
+                        )
                 else:
                     logger.warning(
                         f"Agent {agent.id} does not have save_memory method. "

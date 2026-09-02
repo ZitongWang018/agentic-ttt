@@ -1,5 +1,0 @@
-name	novelty_mode
-f2p_only	off
-random_fixed_cosine	random_fixed_cosine
-learned_fixed_constant	learned_fixed_constant
-learned_unconstrained_cosine	learned_unconstrained_cosine

@@ -15,4 +15,4 @@ cd "${REPO_ROOT}"
 exec "${REPO_ROOT}/.venv/bin/python" \
   "${EXPERIMENT_ROOT}/code/summarize_runs.py" \
   "${EXPERIMENT_ROOT}/formal" \
-  --output-prefix "${EXPERIMENT_ROOT}/summary/formal"
+  --output-prefix "${EXPERIMENT_ROOT}/summary/absolute_strength_ablation_seed42_500steps"

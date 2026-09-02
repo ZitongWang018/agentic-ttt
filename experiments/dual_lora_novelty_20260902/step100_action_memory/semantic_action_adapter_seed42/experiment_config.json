@@ -1,0 +1,41 @@
+{
+  "experiment": "step100_action_memory_branch",
+  "setting": "semantic_adapter",
+  "source_run": "/home/sunward/tmp-ttt/experiments/dual_lora_novelty_20260902/f2p_checkpoint_rerun/f2p_only_seed42",
+  "source_lora": "/home/sunward/tmp-ttt/experiments/dual_lora_novelty_20260902/f2p_checkpoint_rerun/f2p_only_seed42/qwen3_4b_dual_lora_novelty/lora_checkpoints/step_0100",
+  "branch_environment_step": 100,
+  "evaluated_environment_steps": [
+    100,
+    149
+  ],
+  "new_step_count": 50,
+  "seed": 42,
+  "game": "remnant",
+  "f2p": {
+    "loss_mode": "normalized_logp_l2",
+    "alpha": 0.25,
+    "beta": 0.25,
+    "lr": 5e-06,
+    "update_frequency": 5,
+    "short_term_memory": 5
+  },
+  "action_memory": {
+    "rank": 4,
+    "lr": 0.001,
+    "update_frequency": 5,
+    "window_size": 25,
+    "optimization_steps": 10,
+    "reference_beta": 1.0,
+    "apply_scale": 1.0,
+    "semantic_threshold": 0.85,
+    "microbatch_tokens": 8,
+    "adapter_formula": "delta_z = W_up(SiLU(W_down(h_action_slot)))",
+    "loss": "negative unlikelihood + beta * KL(base || adapted)",
+    "reset_before_each_update": true
+  },
+  "prompt_history": {
+    "enabled": false,
+    "window_size": 25
+  },
+  "runner": "/home/sunward/tmp-ttt/experiments/dual_lora_novelty_20260902/code/run_step100_action_memory.py"
+}

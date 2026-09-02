@@ -1,0 +1,5 @@
+setting	mode
+f2p_control	control
+exact_action_adapter	exact_adapter
+semantic_action_adapter	semantic_adapter
+prompt_history25	prompt_history

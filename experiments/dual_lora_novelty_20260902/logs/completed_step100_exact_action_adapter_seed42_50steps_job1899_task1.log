@@ -1,0 +1,82 @@
+[01:53:11] [INFO] Agent qwen3_4b_dual_lora_novelty (FeedbackToPolicyTTTAgent) config: ParamAgentConfig(llm_name='/home/sunward/models/Qwen3-4B', llm_provider='huggingface', embed_name='Qwen/Qwen3-Embedding-0.6B', max_new_tokens=4096, temperature=0.7, presence_penalty=1.5, top_p=0.8, action_prompt='What should I do next? Return only the JSON object.', available_actions=[], torch_seed=42, enable_reflection=False, reflection_verbose=True, enable_summarization=False, summarizer_verbose=True, enable_short_term_memory=True, short_term_memory_size=5, full_mem_path='/home/sunward/tmp-ttt/experiments/dual_lora_novelty_20260902/step100_action_memory/exact_action_adapter_seed42/qwen3_4b_dual_lora_novelty/memory', system_prompt='\nYou are the player in a text adventure games. The world is described in text form.\nAt each turn, you may choose ONE action from the action space below.\n\nAction space:\n{}\n\nOutput format (STRICT):\nReturn a single JSON object with exactly these keys:\n{{\n  "reasoning": "A few sentences explaining why you choose the action.",\n  "action": "<action>"\n}}\n\nRules:\n- The JSON must be the ONLY content in your reply (no extra text before/after).\n- The action must exactly match one option from the action space.\n', max_seq_len=4096, full_param_lr=1e-06, lr=5e-06, epochs=2, batch_size=2, grad_accum=1, fp16=True, f2p_beta=1.0, f2p_update_frequency=5, hindsight_horizon=4, prompt_memory_max_chars=12000, policy_update_frequency=5, policy_lr=5e-06, policy_epochs=1, summarizer_llm_name=None, summarizer_temperature=0.6, summarizer_top_p=0.95, summarizer_max_new_tokens=1024, use_sfted_summarizer=True, seed=666) (eval.py:<module>:329)
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:   0%|          | 1/398 [00:01<11:46,  1.78s/it]Loading weights:  16%|█▋        | 65/398 [00:01<00:06, 47.89it/s]Loading weights:  25%|██▌       | 101/398 [00:02<00:05, 55.22it/s]Loading weights:  31%|███       | 124/398 [00:02<00:05, 53.47it/s]Loading weights:  35%|███▌      | 140/398 [00:03<00:04, 59.21it/s]Loading weights:  39%|███▊      | 154/398 [00:03<00:03, 65.08it/s]Loading weights:  42%|████▏     | 167/398 [00:03<00:03, 71.47it/s]Loading weights:  45%|████▍     | 179/398 [00:03<00:03, 62.44it/s]Loading weights:  48%|████▊     | 190/398 [00:03<00:03, 61.65it/s]Loading weights:  50%|█████     | 199/398 [00:03<00:03, 65.51it/s]Loading weights:  52%|█████▏    | 208/398 [00:03<00:02, 69.80it/s]Loading weights:  55%|█████▍    | 217/398 [00:04<00:02, 61.16it/s]Loading weights:  57%|█████▋    | 225/398 [00:04<00:03, 55.50it/s]Loading weights:  59%|█████▉    | 234/398 [00:04<00:03, 53.72it/s]Loading weights:  62%|██████▏   | 245/398 [00:04<00:02, 54.78it/s]Loading weights:  64%|██████▍   | 256/398 [00:04<00:02, 55.69it/s]Loading weights:  67%|██████▋   | 267/398 [00:05<00:02, 58.84it/s]Loading weights:  70%|██████▉   | 278/398 [00:05<00:01, 63.72it/s]Loading weights:  73%|███████▎  | 289/398 [00:05<00:01, 65.85it/s]Loading weights:  75%|███████▌  | 300/398 [00:05<00:01, 67.90it/s]Loading weights:  78%|███████▊  | 311/398 [00:05<00:01, 69.89it/s]Loading weights:  81%|████████  | 322/398 [00:05<00:01, 68.27it/s]Loading weights:  84%|████████▎ | 333/398 [00:05<00:00, 70.68it/s]Loading weights:  86%|████████▋ | 344/398 [00:06<00:00, 71.55it/s]Loading weights:  89%|████████▉ | 355/398 [00:06<00:00, 71.02it/s]Loading weights:  92%|█████████▏| 366/398 [00:06<00:00, 71.52it/s]Loading weights:  95%|█████████▍| 377/398 [00:06<00:00, 76.56it/s]Loading weights: 100%|██████████| 398/398 [00:06<00:00, 59.83it/s]
+[01:53:19] [INFO] ✅ Loaded HuggingFace model /home/sunward/models/Qwen3-4B on cuda. (huggingface.py:__init__:76)
+[ActionMemory] generation compile disabled; using SDPA.
+[LoRASFTAgent] Short-term memory enabled = True
+[LoRASFTAgent] Reflection enabled = False
+[F2PLossAblation] mode=normalized_logp_l2 alpha=0.25 beta=0.25
+[ActionMemory] mode=exact_adapter rank=4 lr=0.001 window=25 frequency=5 opt_steps=10 reference_beta=1.0 apply_scale=1.0 semantic_threshold=0.85
+[01:53:19] [INFO] Created 1 agent(s): ['qwen3_4b_dual_lora_novelty'] (eval.py:<module>:340)
+[01:53:19] [INFO] qwen3_4b_dual_lora_novelty memory dir: /home/sunward/tmp-ttt/experiments/dual_lora_novelty_20260902/step100_action_memory/exact_action_adapter_seed42/qwen3_4b_dual_lora_novelty/memory (eval.py:<module>:342)
+[01:53:19] [INFO] Agent memory save frequency: 5 (eval.py:<module>:343)
+[01:53:19] [INFO] Immutable LoRA snapshot steps: [] (eval.py:<module>:344)
+[01:53:19] [INFO] Continuing the game from config: /home/sunward/tmp-ttt/experiments/dual_lora_novelty_20260902/step100_action_memory/exact_action_adapter_seed42/config.jsonl (eval.py:<module>:360)
+[Memory] Getting previous short-term memory:  size=5
+Loading adapter from  /home/sunward/tmp-ttt/experiments/dual_lora_novelty_20260902/step100_action_memory/exact_action_adapter_seed42/qwen3_4b_dual_lora_novelty/memory/lora
+[01:53:21] [INFO] Loaded memory for agent qwen3_4b_dual_lora_novelty from ['/home/sunward/tmp-ttt/experiments/dual_lora_novelty_20260902/step100_action_memory/exact_action_adapter_seed42/qwen3_4b_dual_lora_novelty/memory/memory.json']. (eval.py:<module>:408)
+[01:54:10] [INFO] ✅ [Step 100] Qwen3-4B F2P + Novelty Dual LoRA performs action enter with params ['armory'] (env.py:step:677)
+[01:54:55] [INFO] ✅ [Step 101] Qwen3-4B F2P + Novelty Dual LoRA performs action throw with params ['torch', 'goblin_warrior_1'] (env.py:step:677)
+[01:55:32] [INFO] ✅ [Step 102] Qwen3-4B F2P + Novelty Dual LoRA performs action attack with params ['goblin_warrior_1'] (env.py:step:677)
+[01:56:52] [INFO] ✅ [Step 103] Qwen3-4B F2P + Novelty Dual LoRA performs action attack with params ['goblin_warrior_1'] (env.py:step:677)
+[01:56:52] [INFO] Agent qwen3_4b_dual_lora_novelty received reward: RewardBreakdown(unique_kill=1, kill=1, craft=0, exploration=0, death=0, trade=0, quest=0, side_quest=0) (Total XP: 40) (reward_functions.py:compute:88)
+[01:57:36] [INFO] ✅ [Step 104] Qwen3-4B F2P + Novelty Dual LoRA performs action enter with params ['armory'] (env.py:step:677)
+[01:57:40] [INFO] Saving memory for qwen3_4b_dual_lora_novelty at step 105 (eval.py:<module>:515)
+[01:58:26] [INFO] ✅ [Step 105] Qwen3-4B F2P + Novelty Dual LoRA performs action pick up with params ['torch'] (env.py:step:677)
+[01:59:25] [INFO] ✅ [Step 106] Qwen3-4B F2P + Novelty Dual LoRA performs action enter with params ['hall'] (env.py:step:677)
+[02:00:00] [INFO] ✅ [Step 107] Qwen3-4B F2P + Novelty Dual LoRA performs action pick up with params ['torch'] (env.py:step:677)
+[02:00:22] [INFO] ✅ [Step 108] Qwen3-4B F2P + Novelty Dual LoRA performs action attack with params ['swamp_raider_10'] (env.py:step:677)
+[02:00:22] [INFO] Agent qwen3_4b_dual_lora_novelty received reward: RewardBreakdown(unique_kill=0, kill=0, craft=0, exploration=0, death=1, trade=0, quest=0, side_quest=0) (Total XP: 40) (reward_functions.py:compute:88)
+[02:01:03] [INFO] ✅ [Step 109] Qwen3-4B F2P + Novelty Dual LoRA performs action craft with params ['1', 'potion'] (env.py:step:677)
+[02:01:07] [INFO] Saving memory for qwen3_4b_dual_lora_novelty at step 110 (eval.py:<module>:515)
+[02:01:59] [INFO] ✅ [Step 110] Qwen3-4B F2P + Novelty Dual LoRA performs action pick up with params ['torch'] (env.py:step:677)
+[02:02:40] [INFO] ✅ [Step 111] Qwen3-4B F2P + Novelty Dual LoRA performs action enter with params ['armory'] (env.py:step:677)
+[02:03:07] [INFO] ✅ [Step 112] Qwen3-4B F2P + Novelty Dual LoRA performs action talk to with params ['villager_0'] (env.py:step:677)
+[02:03:07] [INFO] Agent qwen3_4b_dual_lora_novelty received reward: RewardBreakdown(unique_kill=0, kill=0, craft=0, exploration=0, death=0, trade=0, quest=0, side_quest=1) (Total XP: 45) (reward_functions.py:compute:88)
+[02:03:24] [INFO] ✅ [Step 113] Qwen3-4B F2P + Novelty Dual LoRA performs action talk to with params ['daniel_cross'] (env.py:step:677)
+[02:03:55] [INFO] ✅ [Step 114] Qwen3-4B F2P + Novelty Dual LoRA performs action pick up with params ['mountain_sulfur'] (env.py:step:677)
+[02:03:59] [INFO] Saving memory for qwen3_4b_dual_lora_novelty at step 115 (eval.py:<module>:515)
+[02:04:26] [INFO] ✅ [Step 115] Qwen3-4B F2P + Novelty Dual LoRA performs action craft with params ['1', 'sulfur_powder'] (env.py:step:677)
+[02:04:56] [INFO] ✅ [Step 116] Qwen3-4B F2P + Novelty Dual LoRA performs action pick up with params ['mountain_sulfur'] (env.py:step:677)
+[02:05:39] [INFO] ✅ [Step 117] Qwen3-4B F2P + Novelty Dual LoRA performs action enter with params ['hall'] (env.py:step:677)
+[02:06:11] [INFO] ✅ [Step 118] Qwen3-4B F2P + Novelty Dual LoRA performs action pick up with params ['mountain_sulfur'] (env.py:step:677)
+[02:06:55] [INFO] ✅ [Step 119] Qwen3-4B F2P + Novelty Dual LoRA performs action store with params ['1', 'mountain_sulfur', 'small_bag_0'] (env.py:step:677)
+[02:06:59] [INFO] Saving memory for qwen3_4b_dual_lora_novelty at step 120 (eval.py:<module>:515)
+[02:07:49] [INFO] ✅ [Step 120] Qwen3-4B F2P + Novelty Dual LoRA performs action enter with params ['library'] (env.py:step:677)
+[02:08:25] [INFO] ✅ [Step 121] Qwen3-4B F2P + Novelty Dual LoRA performs action talk to with params ['chronicler_lyra'] (env.py:step:677)
+[02:09:21] [INFO] ✅ [Step 122] Qwen3-4B F2P + Novelty Dual LoRA performs action enter with params ['hall'] (env.py:step:677)
+[02:09:46] [INFO] ✅ [Step 123] Qwen3-4B F2P + Novelty Dual LoRA performs action craft with params ['1', 'explosion_potion'] (env.py:step:677)
+[02:10:17] [INFO] ✅ [Step 124] Qwen3-4B F2P + Novelty Dual LoRA performs action enter with params ['armory'] (env.py:step:677)
+[02:10:21] [INFO] Saving memory for qwen3_4b_dual_lora_novelty at step 125 (eval.py:<module>:515)
+[02:11:23] [INFO] ✅ [Step 125] Qwen3-4B F2P + Novelty Dual LoRA performs action talk to with params ['villager_0'] (env.py:step:677)
+[02:12:30] [INFO] ✅ [Step 126] Qwen3-4B F2P + Novelty Dual LoRA performs action craft with params ['1', 'iron_dagger'] (env.py:step:677)
+[02:12:55] [INFO] ✅ [Step 127] Qwen3-4B F2P + Novelty Dual LoRA performs action talk to with params ['daniel_cross'] (env.py:step:677)
+[02:13:31] [INFO] ✅ [Step 128] Qwen3-4B F2P + Novelty Dual LoRA performs action pick up with params ['2', 'mountain_sulfur'] (env.py:step:677)
+[02:13:58] [INFO] ✅ [Step 129] Qwen3-4B F2P + Novelty Dual LoRA performs action pick up with params ['mountain_sulfur'] (env.py:step:677)
+[02:14:02] [INFO] Saving memory for qwen3_4b_dual_lora_novelty at step 130 (eval.py:<module>:515)
+[02:14:38] [INFO] ✅ [Step 130] Qwen3-4B F2P + Novelty Dual LoRA performs action pick up with params ['mountain_sulfur'] (env.py:step:677)
+[02:15:47] [INFO] ✅ [Step 131] Qwen3-4B F2P + Novelty Dual LoRA performs action store with params ['1', 'mountain_sulfur', 'armory'] (env.py:step:677)
+[02:16:51] [INFO] ✅ [Step 132] Qwen3-4B F2P + Novelty Dual LoRA performs action enter with params ['hall'] (env.py:step:677)
+[02:17:20] [INFO] ✅ [Step 133] Qwen3-4B F2P + Novelty Dual LoRA performs action store with params ['1', 'mountain_sulfur', 'small_bag_0'] (env.py:step:677)
+[02:17:52] [INFO] ✅ [Step 134] Qwen3-4B F2P + Novelty Dual LoRA performs action craft with params ['1', 'explosion_item'] (env.py:step:677)
+[02:17:56] [INFO] Saving memory for qwen3_4b_dual_lora_novelty at step 135 (eval.py:<module>:515)
+[02:18:25] [INFO] ✅ [Step 135] Qwen3-4B F2P + Novelty Dual LoRA performs action inspect with params ['paper_7'] (env.py:step:677)
+[02:19:07] [INFO] ✅ [Step 136] Qwen3-4B F2P + Novelty Dual LoRA performs action enter with params ['library'] (env.py:step:677)
+[02:19:35] [INFO] ✅ [Step 137] Qwen3-4B F2P + Novelty Dual LoRA performs action talk to with params ['chronicler_lyra'] (env.py:step:677)
+[02:20:43] [INFO] ✅ [Step 138] Qwen3-4B F2P + Novelty Dual LoRA performs action enter with params ['hall'] (env.py:step:677)
+[02:21:16] [INFO] ✅ [Step 139] Qwen3-4B F2P + Novelty Dual LoRA performs action enter with params ['library'] (env.py:step:677)
+[02:21:20] [INFO] Saving memory for qwen3_4b_dual_lora_novelty at step 140 (eval.py:<module>:515)
+[02:22:16] [INFO] ✅ [Step 140] Qwen3-4B F2P + Novelty Dual LoRA performs action buy with params ['1', 'cloth', 'villager_1'] (env.py:step:677)
+[02:23:09] [INFO] ✅ [Step 141] Qwen3-4B F2P + Novelty Dual LoRA performs action talk to with params ['chronicler_lyra'] (env.py:step:677)
+[02:23:53] [INFO] ✅ [Step 142] Qwen3-4B F2P + Novelty Dual LoRA performs action enter with params ['hall'] (env.py:step:677)
+[02:24:11] [INFO] ✅ [Step 143] Qwen3-4B F2P + Novelty Dual LoRA performs action attack with params ['goblin_warrior_2'] (env.py:step:677)
+[02:24:11] [INFO] Agent qwen3_4b_dual_lora_novelty received reward: RewardBreakdown(unique_kill=0, kill=0, craft=0, exploration=0, death=1, trade=0, quest=0, side_quest=0) (Total XP: 45) (reward_functions.py:compute:88)
+[02:24:41] [INFO] ✅ [Step 144] Qwen3-4B F2P + Novelty Dual LoRA performs action enter with params ['armory'] (env.py:step:677)
+[02:24:45] [INFO] Saving memory for qwen3_4b_dual_lora_novelty at step 145 (eval.py:<module>:515)
+[02:25:21] [INFO] ✅ [Step 145] Qwen3-4B F2P + Novelty Dual LoRA performs action pick up with params ['torch'] (env.py:step:677)
+[02:25:56] [INFO] ✅ [Step 146] Qwen3-4B F2P + Novelty Dual LoRA performs action enter with params ['hall'] (env.py:step:677)
+[02:26:39] [INFO] ✅ [Step 147] Qwen3-4B F2P + Novelty Dual LoRA performs action pick up with params ['torch'] (env.py:step:677)
+[02:27:30] [INFO] ✅ [Step 148] Qwen3-4B F2P + Novelty Dual LoRA performs action defend with params [] (env.py:step:677)
+[02:28:02] [INFO] ✅ [Step 149] Qwen3-4B F2P + Novelty Dual LoRA performs action enter with params ['library'] (env.py:step:677)
+[02:28:05] [INFO] Saving memory for qwen3_4b_dual_lora_novelty at step 150 (eval.py:<module>:515)
+[02:28:05] [INFO] Episode finished after 150 steps (eval.py:<module>:530)

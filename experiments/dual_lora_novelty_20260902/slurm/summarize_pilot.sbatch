@@ -15,9 +15,9 @@ cd "${REPO_ROOT}"
 "${REPO_ROOT}/.venv/bin/python" \
   "${EXPERIMENT_ROOT}/code/summarize_runs.py" \
   "${EXPERIMENT_ROOT}/pilot" \
-  --output-prefix "${EXPERIMENT_ROOT}/summary/pilot"
+  --output-prefix "${EXPERIMENT_ROOT}/summary/hparam_pilot_seed42_200steps"
 exec "${REPO_ROOT}/.venv/bin/python" \
   "${EXPERIMENT_ROOT}/code/select_pilot.py" \
-  --summary "${EXPERIMENT_ROOT}/summary/pilot.json" \
-  --output-json "${EXPERIMENT_ROOT}/summary/selected_hparams.json" \
-  --output-tsv "${EXPERIMENT_ROOT}/summary/selected_hparams.tsv"
+  --summary "${EXPERIMENT_ROOT}/summary/hparam_pilot_seed42_200steps.json" \
+  --output-json "${EXPERIMENT_ROOT}/summary/selected_novelty_hparams_from_200step_pilot.json" \
+  --output-tsv "${EXPERIMENT_ROOT}/summary/selected_novelty_hparams_from_200step_pilot.tsv"

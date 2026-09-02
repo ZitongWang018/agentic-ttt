@@ -98,6 +98,9 @@ def main() -> None:
     memory_frequency_value = _argument_value(
         eval_args, "--agent_memory_save_frequency"
     )
+    snapshot_steps_value = _argument_value(
+        eval_args, "--agent_lora_snapshot_steps"
+    )
     if not run_dir_value:
         raise ValueError("The experiment requires an explicit --run_dir")
     novelty_seed = int(seed_value) if seed_value is not None else 42
@@ -143,6 +146,12 @@ def main() -> None:
         ],
         "runner": str(Path(__file__).resolve()),
     }
+    if snapshot_steps_value and snapshot_steps_value.strip():
+        metadata["lora_snapshot_steps"] = [
+            int(value.strip())
+            for value in snapshot_steps_value.split(",")
+            if value.strip()
+        ]
     if metadata_path.exists():
         existing = json.loads(metadata_path.read_text(encoding="utf-8"))
         if existing != metadata:

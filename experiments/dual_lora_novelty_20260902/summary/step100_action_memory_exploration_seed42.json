@@ -1,0 +1,1401 @@
+{
+  "generated_at": "2026-09-03T02:48:10.110500+08:00",
+  "source_checkpoint": "experiments/dual_lora_novelty_20260902/f2p_checkpoint_rerun/f2p_only_seed42/qwen3_4b_dual_lora_novelty/lora_checkpoints/step_0100",
+  "completed_50step_runs": [
+    {
+      "setting": "exact_action_adapter",
+      "status": "completed_50_steps",
+      "run_dir": "experiments/dual_lora_novelty_20260902/step100_action_memory/exact_action_adapter_seed42",
+      "steps": 50,
+      "environment_step_first": 100,
+      "environment_step_last": 149,
+      "unique_actions": 23,
+      "exact_repeat_count": 30,
+      "exact_repeat_rate": 0.6,
+      "semantic_repeat_count": 30,
+      "semantic_repeat_rate": 0.6,
+      "invalid_count": 1,
+      "invalid_rate": 0.02,
+      "rewards": {
+        "unique_kill": 1,
+        "kill": 1,
+        "craft": 0,
+        "exploration": 0,
+        "death": 2,
+        "trade": 0,
+        "quest": 0,
+        "side_quest": 1
+      },
+      "adapter_updates": 10,
+      "history_target_logprob_change_mean": -0.00916635968923849,
+      "chosen_action_logprob_change_mean": -0.005289889927371405,
+      "repeat_chosen_action_logprob_change_mean": -0.006736166204306452,
+      "novel_chosen_action_logprob_change_mean": -0.0031204755119688342,
+      "effect_target": null,
+      "effect_target_updates": 0,
+      "effect_target_updates_achieved": 0,
+      "calibrated_scale_mean": null,
+      "calibrated_scale_min": null,
+      "calibrated_scale_max": null,
+      "calibrated_drop_mean": null,
+      "calibrated_kl_mean": null,
+      "average_decision_seconds": 40.51802328680642,
+      "average_input_tokens": 3453.72,
+      "average_output_tokens": 701.64,
+      "actions": [
+        {
+          "step": 100,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 101,
+          "action": "throw torch goblin_warrior_1",
+          "invalid": false
+        },
+        {
+          "step": 102,
+          "action": "attack goblin_warrior_1",
+          "invalid": false
+        },
+        {
+          "step": 103,
+          "action": "attack goblin_warrior_1",
+          "invalid": false
+        },
+        {
+          "step": 104,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 105,
+          "action": "pick up torch",
+          "invalid": false
+        },
+        {
+          "step": 106,
+          "action": "enter hall",
+          "invalid": false
+        },
+        {
+          "step": 107,
+          "action": "pick up torch",
+          "invalid": false
+        },
+        {
+          "step": 108,
+          "action": "attack swamp_raider_10",
+          "invalid": false
+        },
+        {
+          "step": 109,
+          "action": "craft 1 potion",
+          "invalid": false
+        },
+        {
+          "step": 110,
+          "action": "pick up torch",
+          "invalid": false
+        },
+        {
+          "step": 111,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 112,
+          "action": "talk to villager_0",
+          "invalid": false
+        },
+        {
+          "step": 113,
+          "action": "talk to daniel_cross",
+          "invalid": false
+        },
+        {
+          "step": 114,
+          "action": "pick up mountain_sulfur",
+          "invalid": false
+        },
+        {
+          "step": 115,
+          "action": "craft 1 sulfur_powder",
+          "invalid": false
+        },
+        {
+          "step": 116,
+          "action": "pick up mountain_sulfur",
+          "invalid": false
+        },
+        {
+          "step": 117,
+          "action": "enter hall",
+          "invalid": false
+        },
+        {
+          "step": 118,
+          "action": "pick up mountain_sulfur",
+          "invalid": false
+        },
+        {
+          "step": 119,
+          "action": "store 1 mountain_sulfur small_bag_0",
+          "invalid": false
+        },
+        {
+          "step": 120,
+          "action": "enter library",
+          "invalid": false
+        },
+        {
+          "step": 121,
+          "action": "talk to chronicler_lyra",
+          "invalid": false
+        },
+        {
+          "step": 122,
+          "action": "enter hall",
+          "invalid": false
+        },
+        {
+          "step": 123,
+          "action": "craft 1 explosion_potion",
+          "invalid": false
+        },
+        {
+          "step": 124,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 125,
+          "action": "talk to villager_0",
+          "invalid": false
+        },
+        {
+          "step": 126,
+          "action": "craft 1 iron_dagger",
+          "invalid": false
+        },
+        {
+          "step": 127,
+          "action": "talk to daniel_cross",
+          "invalid": false
+        },
+        {
+          "step": 128,
+          "action": "pick up 2 mountain_sulfur",
+          "invalid": true
+        },
+        {
+          "step": 129,
+          "action": "pick up mountain_sulfur",
+          "invalid": false
+        },
+        {
+          "step": 130,
+          "action": "pick up mountain_sulfur",
+          "invalid": false
+        },
+        {
+          "step": 131,
+          "action": "store 1 mountain_sulfur armory",
+          "invalid": false
+        },
+        {
+          "step": 132,
+          "action": "enter hall",
+          "invalid": false
+        },
+        {
+          "step": 133,
+          "action": "store 1 mountain_sulfur small_bag_0",
+          "invalid": false
+        },
+        {
+          "step": 134,
+          "action": "craft 1 explosion_item",
+          "invalid": false
+        },
+        {
+          "step": 135,
+          "action": "inspect paper_7",
+          "invalid": false
+        },
+        {
+          "step": 136,
+          "action": "enter library",
+          "invalid": false
+        },
+        {
+          "step": 137,
+          "action": "talk to chronicler_lyra",
+          "invalid": false
+        },
+        {
+          "step": 138,
+          "action": "enter hall",
+          "invalid": false
+        },
+        {
+          "step": 139,
+          "action": "enter library",
+          "invalid": false
+        },
+        {
+          "step": 140,
+          "action": "buy 1 cloth villager_1",
+          "invalid": false
+        },
+        {
+          "step": 141,
+          "action": "talk to chronicler_lyra",
+          "invalid": false
+        },
+        {
+          "step": 142,
+          "action": "enter hall",
+          "invalid": false
+        },
+        {
+          "step": 143,
+          "action": "attack goblin_warrior_2",
+          "invalid": false
+        },
+        {
+          "step": 144,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 145,
+          "action": "pick up torch",
+          "invalid": false
+        },
+        {
+          "step": 146,
+          "action": "enter hall",
+          "invalid": false
+        },
+        {
+          "step": 147,
+          "action": "pick up torch",
+          "invalid": false
+        },
+        {
+          "step": 148,
+          "action": "defend",
+          "invalid": false
+        },
+        {
+          "step": 149,
+          "action": "enter library",
+          "invalid": false
+        }
+      ]
+    },
+    {
+      "setting": "f2p_control",
+      "status": "completed_50_steps",
+      "run_dir": "experiments/dual_lora_novelty_20260902/step100_action_memory/f2p_control_seed42",
+      "steps": 50,
+      "environment_step_first": 100,
+      "environment_step_last": 149,
+      "unique_actions": 29,
+      "exact_repeat_count": 25,
+      "exact_repeat_rate": 0.5,
+      "semantic_repeat_count": 26,
+      "semantic_repeat_rate": 0.52,
+      "invalid_count": 2,
+      "invalid_rate": 0.04,
+      "rewards": {
+        "unique_kill": 2,
+        "kill": 2,
+        "craft": 1,
+        "exploration": 0,
+        "death": 1,
+        "trade": 0,
+        "quest": 0,
+        "side_quest": 1
+      },
+      "adapter_updates": 0,
+      "history_target_logprob_change_mean": null,
+      "chosen_action_logprob_change_mean": null,
+      "repeat_chosen_action_logprob_change_mean": null,
+      "novel_chosen_action_logprob_change_mean": null,
+      "effect_target": null,
+      "effect_target_updates": 0,
+      "effect_target_updates_achieved": 0,
+      "calibrated_scale_mean": null,
+      "calibrated_scale_min": null,
+      "calibrated_scale_max": null,
+      "calibrated_drop_mean": null,
+      "calibrated_kl_mean": null,
+      "average_decision_seconds": 40.92222337840125,
+      "average_input_tokens": 3438.76,
+      "average_output_tokens": 730.22,
+      "actions": [
+        {
+          "step": 100,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 101,
+          "action": "attack goblin_warrior_1",
+          "invalid": false
+        },
+        {
+          "step": 102,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 103,
+          "action": "craft 1 dagger",
+          "invalid": false
+        },
+        {
+          "step": 104,
+          "action": "pick up cloth",
+          "invalid": false
+        },
+        {
+          "step": 105,
+          "action": "craft 1 thread",
+          "invalid": false
+        },
+        {
+          "step": 106,
+          "action": "pick up cloth",
+          "invalid": false
+        },
+        {
+          "step": 107,
+          "action": "craft 1 paper",
+          "invalid": false
+        },
+        {
+          "step": 108,
+          "action": "craft 1 paper",
+          "invalid": false
+        },
+        {
+          "step": 109,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 110,
+          "action": "enter hall",
+          "invalid": false
+        },
+        {
+          "step": 111,
+          "action": "inspector torch",
+          "invalid": true
+        },
+        {
+          "step": 112,
+          "action": "enter library",
+          "invalid": false
+        },
+        {
+          "step": 113,
+          "action": "pick up torch",
+          "invalid": false
+        },
+        {
+          "step": 114,
+          "action": "enter hall",
+          "invalid": false
+        },
+        {
+          "step": 115,
+          "action": "craft 1 cloth",
+          "invalid": false
+        },
+        {
+          "step": 116,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 117,
+          "action": "enter plain",
+          "invalid": false
+        },
+        {
+          "step": 118,
+          "action": "enter hall",
+          "invalid": false
+        },
+        {
+          "step": 119,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 120,
+          "action": "pick up torch",
+          "invalid": false
+        },
+        {
+          "step": 121,
+          "action": "inspect torch",
+          "invalid": false
+        },
+        {
+          "step": 122,
+          "action": "talk to villager_0",
+          "invalid": false
+        },
+        {
+          "step": 123,
+          "action": "talk to daniel_cross",
+          "invalid": false
+        },
+        {
+          "step": 124,
+          "action": "pick up mountain_sulfur",
+          "invalid": false
+        },
+        {
+          "step": 125,
+          "action": "drop cloth",
+          "invalid": false
+        },
+        {
+          "step": 126,
+          "action": "pickup mountain_sulfur",
+          "invalid": true
+        },
+        {
+          "step": 127,
+          "action": "pick up mountain_sulfur",
+          "invalid": false
+        },
+        {
+          "step": 128,
+          "action": "pick up mountain_sulfur",
+          "invalid": false
+        },
+        {
+          "step": 129,
+          "action": "craft 1 sulfur_powder",
+          "invalid": false
+        },
+        {
+          "step": 130,
+          "action": "enter hall",
+          "invalid": false
+        },
+        {
+          "step": 131,
+          "action": "inspect workbench",
+          "invalid": false
+        },
+        {
+          "step": 132,
+          "action": "enter library",
+          "invalid": false
+        },
+        {
+          "step": 133,
+          "action": "talk to chronicler_lyra",
+          "invalid": false
+        },
+        {
+          "step": 134,
+          "action": "defend",
+          "invalid": false
+        },
+        {
+          "step": 135,
+          "action": "attack goblin_warrior_2",
+          "invalid": false
+        },
+        {
+          "step": 136,
+          "action": "attack goblin_warrior_2",
+          "invalid": false
+        },
+        {
+          "step": 137,
+          "action": "wait",
+          "invalid": false
+        },
+        {
+          "step": 138,
+          "action": "talk to chronicler_lyra",
+          "invalid": false
+        },
+        {
+          "step": 139,
+          "action": "defend",
+          "invalid": false
+        },
+        {
+          "step": 140,
+          "action": "eat bread",
+          "invalid": false
+        },
+        {
+          "step": 141,
+          "action": "defend",
+          "invalid": false
+        },
+        {
+          "step": 142,
+          "action": "attack goblinWarrior_2",
+          "invalid": false
+        },
+        {
+          "step": 143,
+          "action": "talk to bob_johnson",
+          "invalid": false
+        },
+        {
+          "step": 144,
+          "action": "equip torch",
+          "invalid": false
+        },
+        {
+          "step": 145,
+          "action": "attack goblin_warrior_2",
+          "invalid": false
+        },
+        {
+          "step": 146,
+          "action": "eat bread",
+          "invalid": false
+        },
+        {
+          "step": 147,
+          "action": "attack goblin_warrior_2",
+          "invalid": false
+        },
+        {
+          "step": 148,
+          "action": "attack goblin_warrior_2",
+          "invalid": false
+        },
+        {
+          "step": 149,
+          "action": "take out goblin_eye old_castle_library",
+          "invalid": false
+        }
+      ]
+    },
+    {
+      "setting": "prompt_history25",
+      "status": "completed_50_steps",
+      "run_dir": "experiments/dual_lora_novelty_20260902/step100_action_memory/prompt_history25_seed42",
+      "steps": 50,
+      "environment_step_first": 100,
+      "environment_step_last": 149,
+      "unique_actions": 30,
+      "exact_repeat_count": 21,
+      "exact_repeat_rate": 0.42,
+      "semantic_repeat_count": 24,
+      "semantic_repeat_rate": 0.48,
+      "invalid_count": 2,
+      "invalid_rate": 0.04,
+      "rewards": {
+        "unique_kill": 2,
+        "kill": 2,
+        "craft": 0,
+        "exploration": 0,
+        "death": 3,
+        "trade": 0,
+        "quest": 0,
+        "side_quest": 0
+      },
+      "adapter_updates": 0,
+      "history_target_logprob_change_mean": null,
+      "chosen_action_logprob_change_mean": null,
+      "repeat_chosen_action_logprob_change_mean": null,
+      "novel_chosen_action_logprob_change_mean": null,
+      "effect_target": null,
+      "effect_target_updates": 0,
+      "effect_target_updates_achieved": 0,
+      "calibrated_scale_mean": null,
+      "calibrated_scale_min": null,
+      "calibrated_scale_max": null,
+      "calibrated_drop_mean": null,
+      "calibrated_kl_mean": null,
+      "average_decision_seconds": 55.052746465783564,
+      "average_input_tokens": 3490.28,
+      "average_output_tokens": 966.28,
+      "actions": [
+        {
+          "step": 100,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 101,
+          "action": "pickpocket goblin_warrior_1",
+          "invalid": false
+        },
+        {
+          "step": 102,
+          "action": "throw torch goblin_warrior_1",
+          "invalid": false
+        },
+        {
+          "step": 103,
+          "action": "inspect paper_7",
+          "invalid": false
+        },
+        {
+          "step": 104,
+          "action": "talk to goblin_warrior_1",
+          "invalid": false
+        },
+        {
+          "step": 105,
+          "action": "craft 1 explosive",
+          "invalid": false
+        },
+        {
+          "step": 106,
+          "action": "take out small_bag_0",
+          "invalid": true
+        },
+        {
+          "step": 107,
+          "action": "craft 1 alchemical_potion",
+          "invalid": false
+        },
+        {
+          "step": 108,
+          "action": "store 1 mountain_sulfur small_bag_0",
+          "invalid": false
+        },
+        {
+          "step": 109,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 110,
+          "action": "enter library",
+          "invalid": false
+        },
+        {
+          "step": 111,
+          "action": "disassemble crimson_lichen",
+          "invalid": false
+        },
+        {
+          "step": 112,
+          "action": "pick up torch",
+          "invalid": false
+        },
+        {
+          "step": 113,
+          "action": "lockpick armory",
+          "invalid": false
+        },
+        {
+          "step": 114,
+          "action": "inspect paper_7",
+          "invalid": false
+        },
+        {
+          "step": 115,
+          "action": "write caution paper_7",
+          "invalid": false
+        },
+        {
+          "step": 116,
+          "action": "talk to goblin_warrior_1",
+          "invalid": false
+        },
+        {
+          "step": 117,
+          "action": "enter library",
+          "invalid": false
+        },
+        {
+          "step": 118,
+          "action": "pick up torch",
+          "invalid": false
+        },
+        {
+          "step": 119,
+          "action": "enter hall",
+          "invalid": false
+        },
+        {
+          "step": 120,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 121,
+          "action": "craft 1 alchemical_potion",
+          "invalid": false
+        },
+        {
+          "step": 122,
+          "action": "enter plain",
+          "invalid": false
+        },
+        {
+          "step": 123,
+          "action": "pick up torch",
+          "invalid": false
+        },
+        {
+          "step": 124,
+          "action": "attack goblin_warrior_1",
+          "invalid": false
+        },
+        {
+          "step": 125,
+          "action": "inspect workbench",
+          "invalid": false
+        },
+        {
+          "step": 126,
+          "action": "defend",
+          "invalid": false
+        },
+        {
+          "step": 127,
+          "action": "enter hall",
+          "invalid": false
+        },
+        {
+          "step": 128,
+          "action": "craft 1 alchemical_potion",
+          "invalid": false
+        },
+        {
+          "step": 129,
+          "action": "talk to goblin_warrior_12",
+          "invalid": false
+        },
+        {
+          "step": 130,
+          "action": "sell 10 coin goblin_warrior_12",
+          "invalid": false
+        },
+        {
+          "step": 131,
+          "action": "eat crimson_lichen",
+          "invalid": false
+        },
+        {
+          "step": 132,
+          "action": "pick up crimson_lichen",
+          "invalid": false
+        },
+        {
+          "step": 133,
+          "action": "take out",
+          "invalid": true
+        },
+        {
+          "step": 134,
+          "action": "store 1 crimson_lichen small_bag_0",
+          "invalid": false
+        },
+        {
+          "step": 135,
+          "action": "attack goblin_warrior_12",
+          "invalid": false
+        },
+        {
+          "step": 136,
+          "action": "pick up torch",
+          "invalid": false
+        },
+        {
+          "step": 137,
+          "action": "defend",
+          "invalid": false
+        },
+        {
+          "step": 138,
+          "action": "equip torch",
+          "invalid": false
+        },
+        {
+          "step": 139,
+          "action": "lockpick armory",
+          "invalid": false
+        },
+        {
+          "step": 140,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 141,
+          "action": "throw torch goblin_warrior_12",
+          "invalid": false
+        },
+        {
+          "step": 142,
+          "action": "pick up torch",
+          "invalid": false
+        },
+        {
+          "step": 143,
+          "action": "inspect workbench",
+          "invalid": false
+        },
+        {
+          "step": 144,
+          "action": "write quiet paper_7",
+          "invalid": false
+        },
+        {
+          "step": 145,
+          "action": "equip torch",
+          "invalid": false
+        },
+        {
+          "step": 146,
+          "action": "store 1 torch small_bag_0",
+          "invalid": false
+        },
+        {
+          "step": 147,
+          "action": "enter library",
+          "invalid": false
+        },
+        {
+          "step": 148,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 149,
+          "action": "attack goblin_warrior_12",
+          "invalid": false
+        }
+      ]
+    },
+    {
+      "setting": "semantic_action_adapter",
+      "status": "completed_50_steps",
+      "run_dir": "experiments/dual_lora_novelty_20260902/step100_action_memory/semantic_action_adapter_seed42",
+      "steps": 50,
+      "environment_step_first": 100,
+      "environment_step_last": 149,
+      "unique_actions": 26,
+      "exact_repeat_count": 28,
+      "exact_repeat_rate": 0.56,
+      "semantic_repeat_count": 29,
+      "semantic_repeat_rate": 0.58,
+      "invalid_count": 1,
+      "invalid_rate": 0.02,
+      "rewards": {
+        "unique_kill": 1,
+        "kill": 1,
+        "craft": 0,
+        "exploration": 0,
+        "death": 3,
+        "trade": 0,
+        "quest": 0,
+        "side_quest": 0
+      },
+      "adapter_updates": 10,
+      "history_target_logprob_change_mean": -0.027525103230642146,
+      "chosen_action_logprob_change_mean": -0.014080296690954128,
+      "repeat_chosen_action_logprob_change_mean": -0.02344469213494449,
+      "novel_chosen_action_logprob_change_mean": -0.002161975216784578,
+      "effect_target": null,
+      "effect_target_updates": 0,
+      "effect_target_updates_achieved": 0,
+      "calibrated_scale_mean": null,
+      "calibrated_scale_min": null,
+      "calibrated_scale_max": null,
+      "calibrated_drop_mean": null,
+      "calibrated_kl_mean": null,
+      "average_decision_seconds": 42.794411656418816,
+      "average_input_tokens": 3046.4,
+      "average_output_tokens": 734.84,
+      "actions": [
+        {
+          "step": 100,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 101,
+          "action": "throw torch goblin_warrior_1",
+          "invalid": false
+        },
+        {
+          "step": 102,
+          "action": "attack goblin_warrior_1",
+          "invalid": false
+        },
+        {
+          "step": 103,
+          "action": "attack goblin_warrior_1",
+          "invalid": false
+        },
+        {
+          "step": 104,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 105,
+          "action": "pick up torch",
+          "invalid": false
+        },
+        {
+          "step": 106,
+          "action": "craft 1 potion",
+          "invalid": false
+        },
+        {
+          "step": 107,
+          "action": "enter hall",
+          "invalid": false
+        },
+        {
+          "step": 108,
+          "action": "inspect workbench",
+          "invalid": false
+        },
+        {
+          "step": 109,
+          "action": "pick up torch",
+          "invalid": false
+        },
+        {
+          "step": 110,
+          "action": "enter library",
+          "invalid": false
+        },
+        {
+          "step": 111,
+          "action": "talk to chronicler_lyra",
+          "invalid": false
+        },
+        {
+          "step": 112,
+          "action": "inspect paper_7",
+          "invalid": false
+        },
+        {
+          "step": 113,
+          "action": "talk to villager_1",
+          "invalid": false
+        },
+        {
+          "step": 114,
+          "action": "enter hall",
+          "invalid": false
+        },
+        {
+          "step": 115,
+          "action": "craft 1 potion_of_light",
+          "invalid": false
+        },
+        {
+          "step": 116,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 117,
+          "action": "talk to vilager_0",
+          "invalid": false
+        },
+        {
+          "step": 118,
+          "action": "enter hall",
+          "invalid": false
+        },
+        {
+          "step": 119,
+          "action": "inspect workbench",
+          "invalid": false
+        },
+        {
+          "step": 120,
+          "action": "attack swamp_raider_10",
+          "invalid": false
+        },
+        {
+          "step": 121,
+          "action": "enter library",
+          "invalid": false
+        },
+        {
+          "step": 122,
+          "action": "pick up torch",
+          "invalid": false
+        },
+        {
+          "step": 123,
+          "action": "inspect small_bag_0",
+          "invalid": false
+        },
+        {
+          "step": 124,
+          "action": "enter hall",
+          "invalid": false
+        },
+        {
+          "step": 125,
+          "action": "defend",
+          "invalid": false
+        },
+        {
+          "step": 126,
+          "action": "pick up torch",
+          "invalid": false
+        },
+        {
+          "step": 127,
+          "action": "attack swamp_raider_10",
+          "invalid": false
+        },
+        {
+          "step": 128,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 129,
+          "action": "craft 1 weapon",
+          "invalid": false
+        },
+        {
+          "step": 130,
+          "action": "enter library",
+          "invalid": false
+        },
+        {
+          "step": 131,
+          "action": "use torch",
+          "invalid": true
+        },
+        {
+          "step": 132,
+          "action": "inspect torch",
+          "invalid": false
+        },
+        {
+          "step": 133,
+          "action": "write hello paper_7",
+          "invalid": false
+        },
+        {
+          "step": 134,
+          "action": "pick up torch",
+          "invalid": false
+        },
+        {
+          "step": 135,
+          "action": "pick up small_bag_0",
+          "invalid": false
+        },
+        {
+          "step": 136,
+          "action": "defend",
+          "invalid": false
+        },
+        {
+          "step": 137,
+          "action": "enter hall",
+          "invalid": false
+        },
+        {
+          "step": 138,
+          "action": "craft 1 healing_potion",
+          "invalid": false
+        },
+        {
+          "step": 139,
+          "action": "talk to swamp_raider_10",
+          "invalid": false
+        },
+        {
+          "step": 140,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 141,
+          "action": "pick up torch",
+          "invalid": false
+        },
+        {
+          "step": 142,
+          "action": "defend",
+          "invalid": false
+        },
+        {
+          "step": 143,
+          "action": "disassemble mountain_sulfur",
+          "invalid": false
+        },
+        {
+          "step": 144,
+          "action": "wait",
+          "invalid": false
+        },
+        {
+          "step": 145,
+          "action": "pick up torch",
+          "invalid": false
+        },
+        {
+          "step": 146,
+          "action": "pick up torch",
+          "invalid": false
+        },
+        {
+          "step": 147,
+          "action": "craft 1 lantern",
+          "invalid": false
+        },
+        {
+          "step": 148,
+          "action": "enter library",
+          "invalid": false
+        },
+        {
+          "step": 149,
+          "action": "talk to chronicler_lyra",
+          "invalid": false
+        }
+      ]
+    }
+  ],
+  "stopped_effect_target_runs": [
+    {
+      "setting": "exact_target_drop0.2",
+      "status": "stopped_early_token_surface_escape",
+      "run_dir": "experiments/dual_lora_novelty_20260902/step100_effect_target/exact_target_drop0.2_seed42",
+      "steps": 14,
+      "environment_step_first": 100,
+      "environment_step_last": 113,
+      "unique_actions": 13,
+      "exact_repeat_count": 2,
+      "exact_repeat_rate": 0.14285714285714285,
+      "semantic_repeat_count": 2,
+      "semantic_repeat_rate": 0.14285714285714285,
+      "invalid_count": 7,
+      "invalid_rate": 0.5,
+      "rewards": {
+        "unique_kill": 0,
+        "kill": 0,
+        "craft": 0,
+        "exploration": 0,
+        "death": 1,
+        "trade": 0,
+        "quest": 0,
+        "side_quest": 0
+      },
+      "adapter_updates": 3,
+      "history_target_logprob_change_mean": 0.032124783614880435,
+      "chosen_action_logprob_change_mean": 1.920759144488589,
+      "repeat_chosen_action_logprob_change_mean": 0.808731620083563,
+      "novel_chosen_action_logprob_change_mean": 2.10609706522276,
+      "effect_target": 0.2,
+      "effect_target_updates": 3,
+      "effect_target_updates_achieved": 3,
+      "calibrated_scale_mean": 7.5061289469401045,
+      "calibrated_scale_min": 7.019805908203125,
+      "calibrated_scale_max": 8.45452880859375,
+      "calibrated_drop_mean": 0.20000126634293144,
+      "calibrated_kl_mean": 0.4495558123006731,
+      "average_decision_seconds": 42.6491167117908,
+      "average_input_tokens": 3700.714285714286,
+      "average_output_tokens": 752.9285714285714,
+      "actions": [
+        {
+          "step": 100,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 101,
+          "action": "throw torch goblin-warrior_1",
+          "invalid": false
+        },
+        {
+          "step": 102,
+          "action": "inspect workbench",
+          "invalid": false
+        },
+        {
+          "step": 103,
+          "action": "lockpick armory",
+          "invalid": false
+        },
+        {
+          "step": 104,
+          "action": "defender",
+          "invalid": true
+        },
+        {
+          "step": 105,
+          "action": "attack goblins_warror_1",
+          "invalid": false
+        },
+        {
+          "step": 106,
+          "action": "attack goblinWarrioR_1",
+          "invalid": false
+        },
+        {
+          "step": 107,
+          "action": "pickup(torch)",
+          "invalid": true
+        },
+        {
+          "step": 108,
+          "action": "pick uptorch",
+          "invalid": true
+        },
+        {
+          "step": 109,
+          "action": "pick uptorch",
+          "invalid": true
+        },
+        {
+          "step": 110,
+          "action": "craft 1 sword",
+          "invalid": false
+        },
+        {
+          "step": 111,
+          "action": "enter.armery",
+          "invalid": true
+        },
+        {
+          "step": 112,
+          "action": "pick.up torc",
+          "invalid": true
+        },
+        {
+          "step": 113,
+          "action": "pick_up=torch",
+          "invalid": true
+        }
+      ]
+    },
+    {
+      "setting": "exact_target_drop0.5",
+      "status": "stopped_early_token_surface_escape",
+      "run_dir": "experiments/dual_lora_novelty_20260902/step100_effect_target/exact_target_drop0.5_seed42",
+      "steps": 12,
+      "environment_step_first": 100,
+      "environment_step_last": 111,
+      "unique_actions": 12,
+      "exact_repeat_count": 1,
+      "exact_repeat_rate": 0.08333333333333333,
+      "semantic_repeat_count": 1,
+      "semantic_repeat_rate": 0.08333333333333333,
+      "invalid_count": 4,
+      "invalid_rate": 0.3333333333333333,
+      "rewards": {
+        "unique_kill": 0,
+        "kill": 0,
+        "craft": 0,
+        "exploration": 0,
+        "death": 1,
+        "trade": 0,
+        "quest": 0,
+        "side_quest": 0
+      },
+      "adapter_updates": 3,
+      "history_target_logprob_change_mean": 0.026937294419301594,
+      "chosen_action_logprob_change_mean": 1.7398754599610886,
+      "repeat_chosen_action_logprob_change_mean": 0.0004964330582879484,
+      "novel_chosen_action_logprob_change_mean": 1.8980008260431616,
+      "effect_target": 0.5,
+      "effect_target_updates": 3,
+      "effect_target_updates_achieved": 3,
+      "calibrated_scale_mean": 10.150522867838541,
+      "calibrated_scale_min": 9.426025390625,
+      "calibrated_scale_max": 11.5601806640625,
+      "calibrated_drop_mean": 0.5000045216462455,
+      "calibrated_kl_mean": 0.7862787748396537,
+      "average_decision_seconds": 48.63550350465812,
+      "average_input_tokens": 3684.6666666666665,
+      "average_output_tokens": 822.0,
+      "actions": [
+        {
+          "step": 100,
+          "action": "enter armory",
+          "invalid": false
+        },
+        {
+          "step": 101,
+          "action": "throw torch goblin-warrior_1",
+          "invalid": false
+        },
+        {
+          "step": 102,
+          "action": "inspect workbench",
+          "invalid": false
+        },
+        {
+          "step": 103,
+          "action": "lockpick armory",
+          "invalid": false
+        },
+        {
+          "step": 104,
+          "action": "defense",
+          "invalid": true
+        },
+        {
+          "step": 105,
+          "action": "attack goblins_warior_1",
+          "invalid": false
+        },
+        {
+          "step": 106,
+          "action": "pickup goblin Warriort_1",
+          "invalid": true
+        },
+        {
+          "step": 107,
+          "action": "攻击 goblinWarriot_1",
+          "invalid": true
+        },
+        {
+          "step": 108,
+          "action": "attack g Goblin-warrier_1",
+          "invalid": true
+        },
+        {
+          "step": 109,
+          "action": "defEND",
+          "invalid": false
+        },
+        {
+          "step": 110,
+          "action": "craft 1 shield",
+          "invalid": false
+        },
+        {
+          "step": 111,
+          "action": "enter armor",
+          "invalid": false
+        }
+      ]
+    }
+  ],
+  "conclusion": {
+    "prompt_history": "reduced repetition but increased latency and deaths",
+    "fixed_parameter_adapters": "did not beat the F2P control",
+    "effect_target": "met stored-history constraints but escaped through malformed or surface-varied actions"
+  }
+}

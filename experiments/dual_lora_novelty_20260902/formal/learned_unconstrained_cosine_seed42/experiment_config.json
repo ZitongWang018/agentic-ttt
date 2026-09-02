@@ -1,0 +1,19 @@
+{
+  "f2p_source_run": "/home/sunward/tmp-ttt/experiments/f2p_loss_ablation_20260901/formal/normalized_top1_a0.25_b0.25",
+  "f2p_loss_mode": "normalized_logp_l2",
+  "f2p_alpha": 0.25,
+  "f2p_beta": 0.25,
+  "novelty_mode": "learned_unconstrained_cosine",
+  "novelty_rank": 4,
+  "novelty_alpha": 8,
+  "novelty_lr": 5e-06,
+  "novelty_update_frequency": 5,
+  "novelty_window_size": 25,
+  "novelty_batch_size": 5,
+  "novelty_lambda0": 0.25,
+  "novelty_decay_end": 350,
+  "novelty_seed": 42,
+  "negative_selection": "uniform_without_replacement_from_fifo_occurrences",
+  "novelty_loss": "mean_token_logprob(historical_action|current_context)",
+  "runner": "/home/sunward/tmp-ttt/experiments/dual_lora_novelty_20260902/code/run_experiment.py"
+}

@@ -1,0 +1,29 @@
+{
+  "f2p_source_run": "/home/sunward/tmp-ttt/experiments/f2p_loss_ablation_20260901/formal/normalized_top1_a0.25_b0.25",
+  "f2p_loss_mode": "normalized_logp_l2",
+  "f2p_alpha": 0.25,
+  "f2p_beta": 0.25,
+  "novelty_mode": "learned_fixed_cosine",
+  "novelty_rank": 4,
+  "novelty_alpha": 8,
+  "novelty_lr": 5e-06,
+  "novelty_update_frequency": 5,
+  "novelty_window_size": 25,
+  "novelty_batch_size": 5,
+  "novelty_lambda0": 0.25,
+  "novelty_decay_end": 350,
+  "novelty_seed": 42,
+  "negative_selection": "uniform",
+  "novelty_strength_mode": "relative_task_norm",
+  "novelty_score_batch_size": 5,
+  "novelty_train_microbatch_size": 2,
+  "novelty_loss": "mean_token_logprob(historical_action|current_context)",
+  "agents_config": "/home/sunward/tmp-ttt/experiments/dual_lora_novelty_20260902/configs/f2p_novelty_qwen3_4b_fast.json",
+  "max_steps": 7,
+  "agent_memory_save_frequency": 5,
+  "runtime_optimizations": [
+    "batched_no_grad_action_scoring",
+    "microbatched_novelty_backward"
+  ],
+  "runner": "/home/sunward/tmp-ttt/experiments/dual_lora_novelty_20260902/code/run_experiment.py"
+}

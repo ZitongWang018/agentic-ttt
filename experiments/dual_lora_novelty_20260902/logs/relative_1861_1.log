@@ -1,0 +1,40 @@
+[16:31:59] [INFO] Agent qwen3_4b_dual_lora_novelty (FeedbackToPolicyTTTAgent) config: ParamAgentConfig(llm_name='/home/sunward/models/Qwen3-4B', llm_provider='huggingface', embed_name='Qwen/Qwen3-Embedding-0.6B', max_new_tokens=2048, temperature=0.7, presence_penalty=1.5, top_p=0.8, action_prompt='What should I do next? Return only the JSON object.', available_actions=[], torch_seed=42, enable_reflection=False, reflection_verbose=True, enable_summarization=False, summarizer_verbose=True, enable_short_term_memory=True, short_term_memory_size=5, full_mem_path='/home/sunward/tmp-ttt/experiments/dual_lora_novelty_20260902/relative_smoke_v2/hard_relative_seed42/qwen3_4b_dual_lora_novelty/memory', system_prompt='\nYou are the player in a text adventure games. The world is described in text form.\nAt each turn, you may choose ONE action from the action space below.\n\nAction space:\n{}\n\nOutput format (STRICT):\nReturn a single JSON object with exactly these keys:\n{{\n  "reasoning": "A few sentences explaining why you choose the action.",\n  "action": "<action>"\n}}\n\nRules:\n- The JSON must be the ONLY content in your reply (no extra text before/after).\n- The action must exactly match one option from the action space.\n', max_seq_len=4096, full_param_lr=1e-06, lr=5e-06, epochs=2, batch_size=2, grad_accum=1, fp16=True, f2p_beta=1.0, f2p_update_frequency=5, hindsight_horizon=4, prompt_memory_max_chars=12000, policy_update_frequency=5, policy_lr=5e-06, policy_epochs=1, summarizer_llm_name=None, summarizer_temperature=0.6, summarizer_top_p=0.95, summarizer_max_new_tokens=1024, use_sfted_summarizer=True, seed=666) (eval.py:<module>:260)
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:   0%|          | 1/398 [00:00<03:34,  1.85it/s]Loading weights:  12%|█▏        | 49/398 [00:00<00:03, 98.63it/s]Loading weights:  19%|█▊        | 74/398 [00:00<00:02, 119.40it/s]Loading weights:  24%|██▍       | 95/398 [00:00<00:02, 129.02it/s]Loading weights:  29%|██▊       | 114/398 [00:01<00:02, 129.52it/s]Loading weights:  34%|███▍      | 135/398 [00:01<00:02, 127.14it/s]Loading weights:  39%|███▉      | 157/398 [00:01<00:01, 139.60it/s]Loading weights:  45%|████▍     | 179/398 [00:01<00:01, 141.51it/s]Loading weights:  51%|█████     | 201/398 [00:01<00:01, 142.33it/s]Loading weights:  56%|█████▌    | 223/398 [00:01<00:01, 141.69it/s]Loading weights:  62%|██████▏   | 245/398 [00:01<00:01, 144.98it/s]Loading weights:  67%|██████▋   | 267/398 [00:02<00:00, 146.67it/s]Loading weights:  73%|███████▎  | 289/398 [00:02<00:00, 147.07it/s]Loading weights:  76%|███████▋  | 304/398 [00:02<00:00, 146.54it/s]Loading weights:  81%|████████  | 322/398 [00:02<00:00, 144.54it/s]Loading weights:  85%|████████▍ | 337/398 [00:02<00:00, 144.75it/s]Loading weights:  89%|████████▉ | 355/398 [00:02<00:00, 143.25it/s]Loading weights:  95%|█████████▍| 377/398 [00:02<00:00, 147.25it/s]Loading weights: 100%|██████████| 398/398 [00:02<00:00, 133.54it/s]
+[16:32:04] [INFO] ✅ Loaded HuggingFace model /home/sunward/models/Qwen3-4B on cuda. (huggingface.py:__init__:76)
+[DualLoRANovelty] generation compile disabled; using SDPA.
+[LoRASFTAgent] Short-term memory enabled = True
+[LoRASFTAgent] Reflection enabled = False
+[F2PLossAblation] mode=normalized_logp_l2 alpha=0.25 beta=0.25
+[DualLoRANovelty] mode=learned_fixed_cosine rank=4 alpha=8 lr=5e-06 window=25 batch=5 frequency=5 lambda0=0.25 decay_end=350 selection=hard_task_logprob strength=relative_task_norm score_batch=5 train_microbatch=2
+[16:32:04] [INFO] Created 1 agent(s): ['qwen3_4b_dual_lora_novelty'] (eval.py:<module>:271)
+[16:32:04] [INFO] qwen3_4b_dual_lora_novelty memory dir: /home/sunward/tmp-ttt/experiments/dual_lora_novelty_20260902/relative_smoke_v2/hard_relative_seed42/qwen3_4b_dual_lora_novelty/memory (eval.py:<module>:273)
+[16:32:04] [INFO] Agent memory save frequency: 5 (eval.py:<module>:274)
+[16:32:04] [INFO] Initiating new game from the world config: assets/world_definitions/generated/remnant/default.json (eval.py:<module>:283)
+[16:32:04] [INFO] Initiating new game from the environment config: assets/env_configs/generated/remnant/initial.json (eval.py:<module>:284)
+[16:32:04] [INFO] 🚀 Generating the game world using seed 42 (world.py:generate:283)
+[16:32:04] [INFO] ✅ Instantiated Place Greenwood Forest (ID: place_greenwood_forest, Unlocked: True) with 3 areas (world.py:_instantiate_places:553)
+[16:32:04] [INFO] ✅ Instantiated Place Old Castle (ID: place_old_castle, Unlocked: False) with 3 areas (world.py:_instantiate_places:553)
+[16:32:04] [INFO] ✅ Instantiated Place Sunlit Fields (ID: place_sunlit_fields, Unlocked: True) with 3 areas (world.py:_instantiate_places:553)
+[16:32:04] [INFO] ✅ Instantiated Place Misty Swamp (ID: place_misty_swamp, Unlocked: False) with 2 areas (world.py:_instantiate_places:553)
+[16:32:04] [INFO] ✅ Instantiated Place Sapphire Caves (ID: place_sapphire_caves, Unlocked: False) with 3 areas (world.py:_instantiate_places:553)
+[16:32:04] [INFO] ✅ Instantiated Place Crimson Peak (ID: place_crimson_peak, Unlocked: False) with 2 areas (world.py:_instantiate_places:553)
+[16:32:04] [INFO] ✅ Instantiated Place Shadow Market (ID: place_shadow_market, Unlocked: True) with 2 areas (world.py:_instantiate_places:553)
+[16:32:04] [INFO] ✅ Synthesized Objects (total: 87) (world.py:_synthesize_objects:511)
+[16:32:04] [INFO] ✅ Synthesized NPCs (total types: 23) (world.py:_synthesize_npcs:522)
+[16:32:04] [INFO] ✅ Connected areas within each place (world.py:_connect_intraplace_graphs:576)
+[16:32:04] [INFO] ✅ Connected places together (world.py:_connect_interplace_graphs:606)
+[16:32:04] [INFO] ✅ Distributed objects to areas (world.py:_distribute_objects:717)
+[16:32:04] [INFO] ✅ Assigned NPCs to areas (world.py:_assign_npcs_to_areas:826)
+[16:32:04] [INFO] ✅ World generation completed (world.py:generate:307)
+[16:32:04] [INFO] No previous memory found for agent qwen3_4b_dual_lora_novelty. Starting fresh. (eval.py:<module>:340)
+[16:32:34] [INFO] ✅ [Step 0] Qwen3-4B F2P + Novelty Dual LoRA performs action pick up with params ['small_bag_1'] (env.py:step:677)
+[16:33:09] [INFO] ✅ [Step 1] Qwen3-4B F2P + Novelty Dual LoRA performs action equip with params ['small_bag_1'] (env.py:step:677)
+[16:33:42] [INFO] ✅ [Step 2] Qwen3-4B F2P + Novelty Dual LoRA performs action enter with params ['hall'] (env.py:step:677)
+[16:34:49] [INFO] ✅ [Step 3] Qwen3-4B F2P + Novelty Dual LoRA performs action lockpick with params ['hall'] (env.py:step:677)
+[16:35:20] [INFO] ✅ [Step 4] Qwen3-4B F2P + Novelty Dual LoRA performs action inspect with params ['inventory'] (env.py:step:677)
+[16:35:23] [INFO] Saving memory for qwen3_4b_dual_lora_novelty at step 5 (eval.py:<module>:445)
+[16:36:01] [INFO] ✅ [Step 5] Qwen3-4B F2P + Novelty Dual LoRA performs action unequip with params ['small_bag_1'] (env.py:step:677)
+[16:36:21] [INFO] ✅ [Step 6] Qwen3-4B F2P + Novelty Dual LoRA performs action store with params ['1', 'coin', 'small_bag_1'] (env.py:step:677)
+[16:36:23] [INFO] Saving memory for qwen3_4b_dual_lora_novelty at step 7 (eval.py:<module>:445)
+[16:36:23] [INFO] Episode finished after 7 steps (eval.py:<module>:453)

@@ -1,0 +1,26 @@
+# Generated scheduler logs and run directories. Selected result snapshots are
+# force-added explicitly, matching the repository's other experiment folders.
+logs/*
+smoke/*
+pilot/*
+formal/*
+summary/*
+relative_smoke/*
+relative_smoke_v2/*
+relative_formal/*
+discarded_relative_formal_order_confounded_1863/*
+
+# Large resumable environment snapshots and LoRA checkpoints stay local.
+**/config.jsonl
+**/memory/
+**/__pycache__/
+*.pyc
+
+# Cluster-local downloaded dependencies.
+vendor/
+
+!logs/.gitkeep
+!smoke/.gitkeep
+!pilot/.gitkeep
+!formal/.gitkeep
+!summary/.gitkeep

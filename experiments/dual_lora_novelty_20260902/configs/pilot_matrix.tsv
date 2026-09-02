@@ -1,0 +1,8 @@
+name	novelty_mode	novelty_lr	lambda0	seed
+f2p_only	off	0.000005	0.0	42
+fixed_cosine_lr2.5e-6_l0.25	learned_fixed_cosine	0.0000025	0.25	42
+fixed_cosine_lr2.5e-6_l0.5	learned_fixed_cosine	0.0000025	0.5	42
+fixed_cosine_lr2.5e-6_l1.0	learned_fixed_cosine	0.0000025	1.0	42
+fixed_cosine_lr5e-6_l0.25	learned_fixed_cosine	0.000005	0.25	42
+fixed_cosine_lr5e-6_l0.5	learned_fixed_cosine	0.000005	0.5	42
+fixed_cosine_lr5e-6_l1.0	learned_fixed_cosine	0.000005	1.0	42

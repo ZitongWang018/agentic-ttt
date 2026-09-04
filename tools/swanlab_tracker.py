@@ -177,9 +177,9 @@ class SwanLabTracker:
                 {
                     "type": "log",
                     "step": step,
-                    "metrics": {f"death/{agent_id}/event": 1},
+                    "metrics": {"death/event": 1},
                     "texts": {
-                        f"death/{agent_id}/context": {
+                        "death/context": {
                             "data": text,
                             "caption": f"Death at environment step {payload['death_step']}",
                         }
@@ -213,24 +213,27 @@ class SwanLabTracker:
 
         self._invalid_counts[agent_id] += int(bool(record.get("invalid_action")))
         positive = sum(cumulative[key] for key in REWARD_KEYS if key != "death")
+        # Match the historical importer exactly so all Remnant runs overlay in
+        # one SwanLab chart namespace. The agent id stays in run config/events.
         metrics = {
-            f"system/{agent_id}/decision_seconds": record.get("decision_time", 0),
-            f"tokens/{agent_id}/input": record.get("num_input_tokens", 0),
-            f"tokens/{agent_id}/output": record.get("num_output_tokens", 0),
-            f"behavior/{agent_id}/invalid": int(bool(record.get("invalid_action"))),
-            f"behavior/{agent_id}/invalid_cumulative": self._invalid_counts[agent_id],
-            f"behavior/{agent_id}/unique_actions": len(counts),
-            f"behavior/{agent_id}/exact_repeat": repeated_exact,
-            f"behavior/{agent_id}/local25_repeat": repeated_local,
-            f"benchmark/{agent_id}/positive_reward": positive,
-            f"benchmark/{agent_id}/net_reward_proxy": positive - cumulative["death"],
+            "system/decision_seconds": record.get("decision_time", 0),
+            "tokens/input": record.get("num_input_tokens", 0),
+            "tokens/output": record.get("num_output_tokens", 0),
+            "behavior/invalid": int(bool(record.get("invalid_action"))),
+            "behavior/invalid_cumulative": self._invalid_counts[agent_id],
+            "behavior/unique_actions": len(counts),
+            "behavior/exact_repeat": repeated_exact,
+            "behavior/local25_repeat": repeated_local,
+            "benchmark/positive_reward": positive,
+            "benchmark/net_reward_proxy": positive - cumulative["death"],
+            "environment/original_step": step,
         }
         for key in REWARD_KEYS:
-            metrics[f"reward_step/{agent_id}/{key}"] = float(reward.get(key, 0) or 0)
-            metrics[f"benchmark/{agent_id}/{key}"] = cumulative[key]
+            metrics[f"reward_step/{key}"] = float(reward.get(key, 0) or 0)
+            metrics[f"benchmark/{key}"] = cumulative[key]
         for trace_name in ("f2p_trace", "lookahead_trace", "hindsight_trace", "trilora_trace"):
             if trace_name in record:
-                _numeric_trace(f"trace/{agent_id}/{trace_name}", record[trace_name], metrics)
+                _numeric_trace(f"trace/{trace_name}", record[trace_name], metrics)
 
         if self.enabled:
             self._send({"type": "log", "step": step, "metrics": metrics})

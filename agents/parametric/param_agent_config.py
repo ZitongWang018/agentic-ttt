@@ -17,6 +17,16 @@ class ParamAgentConfig(LLMAgentConfig):
     # Generation settings already come from LLMAgentConfig.
     f2p_beta: float = 1.0
     f2p_update_frequency: int = 5
+    task_rank: int = 12
+    free_rank: int = 4
+    free_scale: float = 0.25
+    free_block_horizon: int = 10
+    free_gamma: float = 0.99
+    free_lr: float = 5e-6
+    free_kl_coef: float = 0.05
+    free_sep_coef: float = 0.01
+    free_sep_margin: float = 0.0
+    trilora_diagnostic_points: str = ""
     hindsight_horizon: int = 4
     prompt_memory_max_chars: int = 12000
     policy_update_frequency: int = 5

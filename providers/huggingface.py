@@ -67,10 +67,15 @@ class hfLanguageModel:
             self.device = device
             self.logger = get_logger("hfLanguageModelLogger")
             self.tokenizer = AutoTokenizer.from_pretrained(llm_name, trust_remote_code=True)
+            device_map = None
+            if self.device == "cuda":
+                device_map = "auto"
+            elif str(self.device).startswith("cuda:"):
+                device_map = {"": self.device}
             self.model = AutoModelForCausalLM.from_pretrained(
                 llm_name,
-                device_map="auto" if self.device == "cuda" else None,
-                torch_dtype=torch.float16 if self.device == "cuda" else torch.float32,
+                device_map=device_map,
+                torch_dtype=torch.float16 if str(self.device).startswith("cuda") else torch.float32,
                 trust_remote_code=True
             )
             self.logger.info(f"✅ Loaded HuggingFace model {llm_name} on {self.device}.")

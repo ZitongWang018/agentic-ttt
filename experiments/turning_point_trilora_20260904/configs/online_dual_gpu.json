@@ -1,0 +1,30 @@
+{
+  "agents": [
+    {
+      "agent_type": "SparseTriLoRATTTAgent",
+      "agent_id": "agent_sparse_trilora",
+      "agent_name": "sparse_trilora",
+      "llm_provider": "huggingface",
+      "llm_name": "/root/autodl-tmp/model/Qwen3-4B",
+      "enable_short_term_memory": true,
+      "short_term_memory_size": 5,
+      "max_seq_len": 4096,
+      "max_new_tokens": 768,
+      "temperature": 0.7,
+      "top_p": 0.8,
+      "lr": 5e-6,
+      "f2p_beta": 1.0,
+      "f2p_update_frequency": 5,
+      "task_rank": 12,
+      "free_rank": 4,
+      "free_scale": 0.25,
+      "free_block_horizon": 10,
+      "free_gamma": 0.99,
+      "free_lr": 5e-6,
+      "free_kl_coef": 0.05,
+      "free_sep_coef": 0.01,
+      "free_sep_margin": 0.0,
+      "trilora_diagnostic_points": "15,17,21,27,29,30,31,33,35,36,40,41,54,62,63,65,76,80,86,94,97,100,106,121,126,129,142,165,195,246,298,374,407,453,464,476,486"
+    }
+  ]
+}

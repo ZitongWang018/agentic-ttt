@@ -6,7 +6,10 @@ import shutil
 import tempfile
 import random
 import copy
+import torch
+import torch.distributed as dist
 from tools.logger import get_logger
+from tools.swanlab_tracker import SwanLabTracker
 
 from utils import dynamic_load_game_class, get_hardware_info, convert_json_to_jsonl
 
@@ -93,7 +96,7 @@ def build_agent_config(agent_type, common_cfg_kwargs):
     if agent_type in {"VanillaRAGAgent", "Mem0RAGAgent", "RaptorRAGAgent", "VoyagerAgent"}:
         from agents.rag.rag_agent_config import RAGAgentConfig
         return RAGAgentConfig(**common_cfg_kwargs)
-    elif agent_type in {"VanillaParamAgent", "LoRASFTAgent", "EnvironmentPredictionTTTAgent", "FeedbackToPolicyTTTAgent", "LookaheadEnvironmentTTTAgent", "HindsightLongHorizonTTTAgent"}:
+    elif agent_type in {"VanillaParamAgent", "LoRASFTAgent", "EnvironmentPredictionTTTAgent", "FeedbackToPolicyTTTAgent", "LookaheadEnvironmentTTTAgent", "HindsightLongHorizonTTTAgent", "SparseTriLoRATTTAgent"}:
         from agents.parametric.param_agent_config import ParamAgentConfig
         return ParamAgentConfig(**common_cfg_kwargs)
     elif agent_type in {"LongContextAgent", "Mem1Agent", "ShortTermMemoryAgent"}:
@@ -122,6 +125,7 @@ def instantiate_agent(agent_type, agent_info, AgentCls):
         "FeedbackToPolicyTTTAgent": ("agents.parametric.feedback_to_policy_ttt_agent", "create_feedback_to_policy_ttt_agent"),
         "LookaheadEnvironmentTTTAgent": ("agents.parametric.lookahead_environment_ttt_agent", "create_lookahead_environment_ttt_agent"),
         "HindsightLongHorizonTTTAgent": ("agents.parametric.hindsight_long_horizon_ttt_agent", "create_hindsight_long_horizon_ttt_agent"),
+        "SparseTriLoRATTTAgent": ("agents.parametric.sparse_trilora_ttt_agent", "create_sparse_trilora_ttt_agent"),
         "MPlusAgent":              ("agents.latent.mplus_agent",                   "create_mplus_agent"),
         "MemoryLLMAgent":          ("agents.latent.memoryllm_agent",               "create_memoryllm_agent"),
         "LongContextAgent":        ("agents.long_context_agent",                   "create_long_context_agent"),
@@ -199,7 +203,20 @@ if __name__ == "__main__":
             "directory is copied to an immutable lora_checkpoints/step_NNNN snapshot."
         ),
     )
+    parser.add_argument("--disable_swanlab", action="store_true",
+                        help="Disable the default online SwanLab tracking.")
+    parser.add_argument("--swanlab_project", type=str, default="agentic-TTT")
+    parser.add_argument("--swanlab_workspace", type=str, default="ZitongWang")
+    parser.add_argument("--swanlab_experiment_name", type=str, default=None)
+    parser.add_argument("--swanlab_group", type=str, default=None)
     args = parser.parse_args()
+    distributed = int(os.environ.get("WORLD_SIZE", "1")) > 1
+    local_rank = int(os.environ.get("LOCAL_RANK", "0"))
+    if distributed:
+        if not torch.cuda.is_available():
+            raise RuntimeError("Distributed SparseTriLoRA requires CUDA")
+        torch.cuda.set_device(local_rank)
+        dist.init_process_group(backend="nccl")
     lora_snapshot_steps = _parse_snapshot_steps(args.agent_lora_snapshot_steps)
     if any(step > args.max_steps for step in lora_snapshot_steps):
         raise ValueError(
@@ -300,7 +317,7 @@ if __name__ == "__main__":
         # Optional parametric-agent knobs.  Keeping these in the agent spec
         # makes online SFT/LoRA runs auditable and reproducible without
         # changing the defaults of the other agent families.
-        if a_type in {"VanillaParamAgent", "LoRASFTAgent", "EnvironmentPredictionTTTAgent", "FeedbackToPolicyTTTAgent", "LookaheadEnvironmentTTTAgent", "HindsightLongHorizonTTTAgent"}:
+        if a_type in {"VanillaParamAgent", "LoRASFTAgent", "EnvironmentPredictionTTTAgent", "FeedbackToPolicyTTTAgent", "LookaheadEnvironmentTTTAgent", "HindsightLongHorizonTTTAgent", "SparseTriLoRATTTAgent"}:
             for key in (
                 "max_seq_len",
                 "max_new_tokens",
@@ -318,6 +335,16 @@ if __name__ == "__main__":
                 "policy_update_frequency",
                 "policy_lr",
                 "policy_epochs",
+                "task_rank",
+                "free_rank",
+                "free_scale",
+                "free_block_horizon",
+                "free_gamma",
+                "free_lr",
+                "free_kl_coef",
+                "free_sep_coef",
+                "free_sep_margin",
+                "trilora_diagnostic_points",
             ):
                 if key in spec:
                     common_cfg_kwargs[key] = spec[key]
@@ -335,7 +362,24 @@ if __name__ == "__main__":
             agent.lookahead_log_path = os.path.join(agent_dir, "lookahead_intermediates.jsonl")
         if a_type == "HindsightLongHorizonTTTAgent":
             agent.hindsight_log_path = os.path.join(agent_dir, "hindsight_intermediates.jsonl")
+        if a_type == "SparseTriLoRATTTAgent":
+            agent.f2p_log_path = os.path.join(agent_dir, "f2p_intermediates.jsonl")
+            agent.trilora_log_path = os.path.join(agent_dir, "trilora_intermediates.jsonl")
+            agent.diagnostic_log_path = os.path.join(agent_dir, "trilora_diagnostics.jsonl")
+            agent.free_data_paths = {
+                "free1": os.path.join(agent_dir, "free1_training_data.jsonl"),
+                "free2": os.path.join(agent_dir, "free2_training_data.jsonl"),
+            }
         agents.append(agent)
+
+    # Rank 0 alone owns the stateful environment. Other torchrun ranks are
+    # synchronous model workers for diagnostics and data-parallel TTT updates.
+    if distributed and dist.get_rank() != 0:
+        if len(agents) != 1 or not hasattr(agents[0], "distributed_worker_loop"):
+            raise RuntimeError("torchrun worker mode requires one distributed-capable agent")
+        agents[0].distributed_worker_loop()
+        dist.destroy_process_group()
+        raise SystemExit(0)
 
     logger.info(f"Created {len(agents)} agent(s): {[a.id for a in agents]}")
     for a_id, a_dir in agent_dirs.items():
@@ -409,6 +453,14 @@ if __name__ == "__main__":
             else:
                 logger.info(f"No previous memory found for agent {agent.id}. Starting fresh.")
 
+    swan_tracker = SwanLabTracker(
+        run_dir=run_dir,
+        args=args,
+        agent_specs=agent_specs,
+        hardware=this_hardware,
+        logger=logger,
+    )
+
     while True:
         action_strs = {}
         agents_log = {}
@@ -453,6 +505,8 @@ if __name__ == "__main__":
                     agents_log[agent.id]["lookahead_trace"] = agent.get_lookahead_trace()
                 if hasattr(agent, "get_hindsight_trace"):
                     agents_log[agent.id]["hindsight_trace"] = agent.get_hindsight_trace()
+                if hasattr(agent, "get_trilora_trace"):
+                    agents_log[agent.id]["trilora_trace"] = agent.get_trilora_trace()
 
         episode_finished = bool(done or env.steps >= args.max_steps)
         if episode_finished:
@@ -465,6 +519,7 @@ if __name__ == "__main__":
                     ("f2p_trace", "get_f2p_trace"),
                     ("lookahead_trace", "get_lookahead_trace"),
                     ("hindsight_trace", "get_hindsight_trace"),
+                    ("trilora_trace", "get_trilora_trace"),
                 ):
                     if hasattr(agent, getter_name):
                         agents_log[agent.id][trace_name] = getattr(agent, getter_name)()
@@ -486,11 +541,16 @@ if __name__ == "__main__":
                 "observation": agents_log[agent.id].get("observation"),
                 "response": agents_log[agent.id].get("response"),
             }
-            for trace_name in ("f2p_trace", "lookahead_trace", "hindsight_trace"):
+            for trace_name in ("f2p_trace", "lookahead_trace", "hindsight_trace", "trilora_trace"):
                 if trace_name in agents_log[agent.id]:
                     combined[trace_name] = agents_log[agent.id][trace_name]
             with open(log_path, "a") as f:
                 f.write(json.dumps(combined) + "\n")
+            swan_tracker.log_step(
+                agent_id=agent.id,
+                record=combined,
+                next_observation=obs.get(agent.id),
+            )
 
         env.update_config(cumulative=args.cumulative_config_save)
 
@@ -527,5 +587,11 @@ if __name__ == "__main__":
                     )
 
         if episode_finished:
+            swan_tracker.finish()
+            for agent in env.agents:
+                if hasattr(agent, "stop_distributed_workers"):
+                    agent.stop_distributed_workers()
+            if distributed and dist.is_initialized():
+                dist.destroy_process_group()
             logger.info(f"Episode finished after {env.steps} steps")
             break

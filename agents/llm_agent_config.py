@@ -75,7 +75,11 @@ Rules:
 
     def get_device(self) -> str:
         if torch.cuda.is_available():
-            return "cuda"
+            # torchrun gives every process a LOCAL_RANK.  Binding here keeps
+            # replicated online-TTT workers on separate GPUs instead of letting
+            # both processes silently allocate on cuda:0.
+            local_rank = os.environ.get("LOCAL_RANK")
+            return f"cuda:{int(local_rank)}" if local_rank is not None else "cuda"
         if getattr(torch.backends, "mps", None) and torch.backends.mps.is_available():
             return "mps"
         return "cpu"

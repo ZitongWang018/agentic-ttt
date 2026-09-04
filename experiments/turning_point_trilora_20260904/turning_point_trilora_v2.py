@@ -115,12 +115,15 @@ class SwanSidecar:
         self.proc.stdin.write(json.dumps(message, ensure_ascii=False) + "\n")
         self.proc.stdin.flush()
 
-    def log(self, step: int, metrics: dict, text_payload: dict | None = None):
+    def log(
+        self, step: int, metrics: dict, text_payload: dict | None = None,
+        text_key: str = "eval/decision_context", caption: str | None = None,
+    ):
         msg = {"type": "log", "step": step, "metrics": metrics}
         if text_payload is not None:
-            msg["texts"] = {"eval/decision_context": {
+            msg["texts"] = {text_key: {
                 "data": json.dumps(text_payload, ensure_ascii=False, indent=2),
-                "caption": f"Turning-point decision at historical step {step}",
+                "caption": caption or f"Turning-point decision at historical step {step}",
             }}
         self.send(msg)
 
@@ -219,6 +222,44 @@ def mean_action_logp(logits, labels):
 def reward_scalar(row):
     r = row.get("reward") or {}
     return sum(float(r.get(k, 0) or 0) for k in REWARD_KEYS if k != "death") - float(r.get("death", 0) or 0)
+
+
+def benchmark_metrics(row, cumulative):
+    reward = row.get("reward") or {}
+    metrics = {}
+    for key in REWARD_KEYS:
+        value = float(reward.get(key, 0) or 0)
+        cumulative[key] += value
+        metrics[f"benchmark/{key}"] = value
+        metrics[f"benchmark/cumulative_{key}"] = cumulative[key]
+    score = reward_scalar(row)
+    cumulative["score"] += score
+    metrics.update({
+        "benchmark/step_score": score,
+        "benchmark/cumulative_score": cumulative["score"],
+        "agent/invalid_action": float(bool(row.get("invalid_action", False))),
+        "agent/decision_time": float(row.get("decision_time", 0) or 0),
+        "agent/input_tokens": float(row.get("num_input_tokens", 0) or 0),
+        "agent/output_tokens": float(row.get("num_output_tokens", 0) or 0),
+    })
+    return metrics
+
+
+def death_event_payload(row, recent_actions):
+    trace = row.get("f2p_trace") or {}
+    after = trace.get("real_observation") or (row.get("observation") or {}).get("text", "")
+    time_match = re.search(r"Current Time:\s*([^\n]+)", str(after))
+    return {
+        "event": "death",
+        "historical_step": int(row.get("step", -1)),
+        "environment_time": time_match.group(1).strip() if time_match else None,
+        "recent_actions_before": list(recent_actions),
+        "x_before_action": trace.get("action_prompt") or trace.get("previous_observation"),
+        "assistant_response": row.get("response"),
+        "executed_action": row.get("action"),
+        "environment_after_action": after,
+        "reward": row.get("reward"),
+    }
 
 
 def parse_response(text):
@@ -541,12 +582,14 @@ def main():
 
     decision_path = output_dir / "turning_point_decisions.jsonl"
     train_path = output_dir / "training_metrics.jsonl"
+    death_path = output_dir / "death_events.jsonl"
     free_data_paths = {
         name: output_dir / f"{name}_training_data.jsonl"
         for name in ("free1", "free2")
     }
     task_buffer, block, returns = [], [], []
-    route_counts = Counter(); recent_actions = deque(maxlen=25); point_index = 0
+    route_counts = Counter(); cumulative = Counter()
+    recent_actions = deque(maxlen=25); point_index = 0; death_events = 0
     for row in rows:
         step = int(row.get("step", -1))
         if step > args.max_replay_step: break
@@ -555,6 +598,23 @@ def main():
             with decision_path.open("a", encoding="utf-8") as f: f.write(json.dumps(payload, ensure_ascii=False) + "\n")
             swan.log(step, metrics, payload); point_index += 1
             print("TURNING_POINT", step, {k: v["action"] for k, v in payload["decisions"].items()}, flush=True)
+
+        # Stream every benchmark component and its cumulative value.  A death
+        # additionally carries the exact before/assistant/after transcript.
+        step_metrics = benchmark_metrics(row, cumulative)
+        if float((row.get("reward") or {}).get("death", 0) or 0) > 0:
+            death_events += 1
+            event_payload = death_event_payload(row, recent_actions)
+            with death_path.open("a", encoding="utf-8") as handle:
+                handle.write(json.dumps(event_payload, ensure_ascii=False) + "\n")
+            swan.log(
+                step, step_metrics, event_payload,
+                text_key=f"events/death_step_{step}",
+                caption=f"Death at historical step {step}: before / response / after",
+            )
+            print("DEATH_EVENT", step, event_payload.get("environment_time"), flush=True)
+        else:
+            swan.log(step, step_metrics)
 
         trace = row.get("f2p_trace") or {}
         prompt = trace.get("action_prompt") or ("My Current Observation:\n" + (row.get("observation") or {}).get("text", ""))
@@ -590,6 +650,8 @@ def main():
         "records_replayed": min(len(rows), args.max_replay_step + 1),
         "active_rank": args.task_rank + args.free_rank,
         "stored_lora_rank": args.task_rank + 2 * args.free_rank,
+        "death_events": death_events,
+        "benchmark_totals": {key: cumulative[key] for key in (*REWARD_KEYS, "score")},
     }
     (output_dir / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     swan.finish(); print("COMPLETE", json.dumps(summary), flush=True)

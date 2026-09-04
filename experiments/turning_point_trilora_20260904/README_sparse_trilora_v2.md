@@ -59,3 +59,9 @@ python experiments/turning_point_trilora_20260904/turning_point_trilora_v2.py \
 
 Formal turning-point tests use SwanLab group `remnant-point-test`; feasibility
 checks use `smoke`.
+
+Every replay step streams both instantaneous and cumulative benchmark metrics:
+`death`, `exploration`, `quest`, `side_quest`, `trade`, `craft`, `kill`, and
+`unique_kill`, together with total score, invalid-action, latency, and token
+counts. Each death also creates a `death_events.jsonl` record and a SwanLab text
+event containing the environment time and exact before/assistant/after log.
